@@ -1,0 +1,20 @@
+<h3 style="padding: 10px;">Home</h3>
+
+<form style="padding: 10px;" #formValidate="ngForm" >
+    <div class="form-row">
+        <label for="id">ID:</label>
+        <input type="text" class="form-control" #id="ngModel" [(ngModel)]="person.id" id="id" name="id" readonly>
+    </div>
+    <div class="form-row">
+        <label for="name">Nome:</label>
+        <input type="text" class="form-control" #name="ngModel" [(ngModel)]="person.name" id="name" name="name" required>
+        <div *ngIf="name.invalid" class="alert alert-danger">
+          Informe o Nome!
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <button type="button" class="btn btn-primary" (click)="exit()" routerLinkActive="router-link-active" >Logoff</button>
+        </div>
+    </div>
+</form>
