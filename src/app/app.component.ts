@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { AppConstants } from './app-constants';
+import { LocaleService } from './service/locale.service';
 import { PersonService } from './service/person.service';
 
 @Component({
@@ -10,17 +12,18 @@ import { PersonService } from './service/person.service';
 })
 export class AppComponent implements OnInit {
 
-  title = 'Resume-App-WEB';
-
-  constructor(private router: Router, private personService: PersonService) { }
+  constructor(private router: Router, 
+    private personService: PersonService, 
+    private localeService: LocaleService) {
+    this.localeService.initLocale('en');
+  }
 
   ngOnInit(): void {
     console.log('Usuário Autenticado: ' + AppConstants.isUsuarioAutenticado + ' Pessoa Logada: ' + AppConstants.isPersonLogada );
-    if ((!AppConstants.isUsuarioAutenticado) && (!AppConstants.isPersonLogada)) {
+
+    if ((!AppConstants.isPersonLogada) && (!AppConstants.isUsuarioAutenticado)) {
       this.router.navigate(['login']);
-    } else if ((!AppConstants.isUsuarioAutenticado) && (AppConstants.isPersonLogada)) {
-      this.router.navigate(['home',localStorage.getItem('personId')?.trim()]);
-    } else if ((AppConstants.isUsuarioAutenticado) && (!AppConstants.isPersonLogada)) {
+    } else if ((!AppConstants.isPersonLogada) && (AppConstants.isUsuarioAutenticado)) {
       this.personService.localizarPersonUser(AppConstants.retornaUserToken).subscribe({
         next: data => {
           console.log('IdPerson: ' + data.id);
@@ -37,6 +40,20 @@ export class AppComponent implements OnInit {
           }
         }
       });
+    } else if ((AppConstants.isPersonLogada) && (!AppConstants.isUsuarioAutenticado)) {
+      if (!environment.person.id){
+        this.personService.localizarPessoa(localStorage.getItem('personId')).subscribe({
+          next: data => {
+            environment.person = data;
+          },
+          error: (erro) => console.error('Erro ao Buscar Person: ' + erro),
+          complete: () => {
+            this.router.navigate(['resume']) //Rota para Resume Component
+          }
+        });
+      } else {
+        this.router.navigate(['resume']) //Rota para Resume Component
+      }
     } else {
       this.router.navigate(['person',localStorage.getItem('personId')]);
     }

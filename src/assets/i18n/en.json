@@ -1,0 +1,48 @@
+{
+    "app": {
+        "title": "Resume - Luiz Antônio de Almeida"
+    },
+
+    "header": {
+        "aboutMe": "About Me",
+        "experiences": "Experiences",
+        "posts": "Posts",
+        "contact": "Contact",
+        "downloadAsPdf": "Download as PDF"
+    },
+
+    "dialog": {
+        "hello": "Hello!",
+        "phrases": [ "My name is Luiz.", "Be welcome to my Resume.", "Down below, you will know me better... :)" ]
+    },
+
+    "about": {
+        "yearsOld": "years old"
+    },
+
+    "contact": {
+        "send": "Send",
+        "contact": "Contact",
+        "yourName": "Your name",
+        "namePlaceHolder": "Your Name...",
+        "message": "Your message",
+        "messagePlaceHolder": "Write here your message... I will reply to you soon.",
+        "requiredMessageError": "The message is required",
+        "sucessfulSubmit": "Thank you for contacting me, I'll reply to you very soon.",
+        "errorSubmit": "Sorry, there is an instability, try again later, or contact me via email or social media."
+    },
+
+    "post": {
+        "posts": "Posts",
+        "previous": "Previous",
+        "next": "Next",
+        "readMore": "Read more",
+        "of": "of",
+        "synopsis": "In countless times, an article or a simple piece of information saved me hours of research, so whenever is possible, I try to do my humble contributions:"
+    },
+
+    "experience": {
+        "loading": "Loading..."
+    }
+
+}

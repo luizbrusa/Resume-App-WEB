@@ -1,0 +1,48 @@
+{
+    "app": {
+        "title": "Currículo - Luiz Antônio de Almeida"
+    },
+
+    "header": {
+        "aboutMe": "Sobre Mim",
+        "experiences": "Experiências",
+        "posts": "Posts",
+        "contact": "Contato",
+        "downloadAsPdf": "Baixar como PDF"
+    },
+
+    "dialog": {
+        "hello": "Olá!",
+        "phrases": [ "Meu nome é Luiz.", "Seja bem-vindo(a) ao meu currículo online.", "Abaixo, você me conhecerá melhor... :)" ]
+    },
+
+    "about": {
+        "yearsOld": "years old"
+    },
+
+    "contact": {
+        "send": "Enviar",
+        "contact": "Contato",
+        "yourName": "Seu nome",
+        "namePlaceHolder": "Seu Nome...",
+        "message": "Sua mensagem",
+        "messagePlaceHolder": "Escreva sua mensagem... Eu responderei em breve.",
+        "requiredMessageError": "A Mensagem é obrigatória",
+        "sucessfulSubmit": "Obrigado por me contactar, eu responderei para você muito em breve.",
+        "errorSubmit": "Desculpe, há uma instabilidade no sistema, tente novamente mais tarde, ou entre em contato comigo via e-mail ou mídia social."
+    },
+
+    "post": {
+        "posts": "Posts",
+        "previous": "Anterior",
+        "next": "Próximo",
+        "readMore": "Leia mais",
+        "of": "de",
+        "synopsis": "In countless times, an article or a simple piece of information saved me hours of research, so whenever is possible, I try to do my humble contributions:"
+    },
+
+    "experience": {
+        "loading": "Carregando..."
+    }
+
+}

@@ -1,20 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { PersonComponent } from './person/person.component';
+import { CadExperienceComponent } from './register/experience/cadExperience.component';
+import { CadPersonComponent } from './register/person/cadPerson.component';
+import { ResumeComponent } from './resume/resume.component';
 import { ServiceGuard } from './service/service.guard';
 
-const routes: Routes = [  
-  {path: '', component: LoginComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'home/:id', component: HomeComponent},
-  {path: 'person', component: PersonComponent, canActivate: [ServiceGuard]},
-  {path: 'person/:id', component: PersonComponent, canActivate: [ServiceGuard]},
+const routes: Routes = [
+  { path: '', component: ResumeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'resume', component: ResumeComponent },
+  { path: 'person', component: CadPersonComponent, canActivate: [ServiceGuard] },
+  { path: 'person/:id', component: CadPersonComponent, canActivate: [ServiceGuard] },
+  { path: 'experience/:idPerson', component: CadExperienceComponent, canActivate: [ServiceGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(
+    routes,
+    {
+      anchorScrolling: "enabled",
+      onSameUrlNavigation: "reload"
+    })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

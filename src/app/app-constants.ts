@@ -2,12 +2,13 @@ import jwt_decode from 'jwt-decode';
 
 export class AppConstants {
 
+	constructor() {}
+
 	public static get baseServidor(): string { return 'http://localhost:8080/'; }
 	public static get urlPath(): string { return this.baseServidor + 'resumeAPI/'; }
 
 	public static get urlLogin(): string { return this.urlPath + 'login'; } // END POINT para a URL de Login
 	public static get urlUser(): string { return this.urlPath + 'usuario/'; } // END POINT para URL de Usuários
-	public static get urlPerson(): string { return this.urlPath + 'pessoa/'; } // END POINT para URL de Pessoas
 
 	public static get isUsuarioAutenticado(): boolean {
 		return localStorage.getItem('token') !== '';

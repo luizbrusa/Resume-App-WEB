@@ -1,0 +1,62 @@
+<section id="contact">
+    <div class="feedback-container" [ngClass]="feedbackStatus">
+        <p class="success">
+            <span>{{'contact.sucessfulSubmit' | translate}}</span>
+            <fa-icon [icon]="faTimes" class="icon" title="Close" (click)="closeFeedbackMessage()"></fa-icon>
+        </p>
+        <p class="error">
+            <span>{{'contact.errorSubmit' | translate}}</span>
+            <fa-icon [icon]="faTimes" class="icon" title="Close" (click)="closeFeedbackMessage()"></fa-icon>
+        </p>
+    </div>
+    <div class="container" [ngClass]="{'fade': hasBeenSubmited}">
+        <div class="left-side">
+            <div class="title">
+                <h1>{{'contact.contact' | translate}}</h1>
+            </div>
+            <div class="top-container">
+                <div class="picture" [style]="perfilImageStyle"></div>
+                <div class="info">
+                    <p class="name" *ngIf="name"><span itemprop="name">{{ name }}</span></p>
+                    <p class="email" *ngIf="email"><fa-icon [icon]="faEnvelope" class="icon" title="Email"></fa-icon><a href="mailto:{{ email }}" itemprop="email">{{ email }}</a></p>
+                    <p class="phone" *ngIf="phone"><fa-icon [icon]="faPhone" class="icon" title="Phone"></fa-icon><span itemprop="telephone">{{ phone }}</span></p>
+                    <p class="location" *ngIf="location"><fa-icon [icon]="faMapMarkerAlt" class="icon" title="City"></fa-icon><span itemprop="city">{{ location }}</span></p>
+                </div>
+            </div>
+            <div class="bottom-container">
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit(contactNgForm)" #contactNgForm="ngForm" [ngClass]="{'loading': isLoading}">
+                    <div class="form-group">
+                        <label for="name">{{'contact.yourName' | translate}}:</label>
+                        <input [class.is-invalid]="senderName?.invalid && senderName?.touched" type="text" name="name" [placeholder]="'contact.namePlaceHolder' | translate" formControlName="name" >
+                        <div class="warnings" *ngIf="(senderName?.invalid && senderName?.touched) || senderName?.dirty">
+                            <!--question mark(?) is a safe navigation operator-->
+<!--                            <small *ngIf="senderName?.errors?.required" class="text-danger" i18n="contact@@requiredNameError">The name is required.</small>
+                            <small *ngIf="senderName?.errors?.pattern" class="text-danger" i18n="contact@@invalidNameError">Please, provide a valid name.</small>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input [class.is-invalid]="senderEmail?.invalid && senderEmail?.touched" type="email" name="email" placeholder="mail@gmail.com" formControlName="email" required>
+                        <div class="warnings" *ngIf="(senderEmail?.invalid && senderEmail?.touched) || senderEmail?.dirty">
+                            <!--question mark(?) is a safe navigation operator-->
+<!--                            <small *ngIf="senderEmail.errors?.required" class="text-danger" i18n="contact@@requiredEmailError">The email is required.</small>
+                            <small *ngIf="senderEmail.errors?.pattern" class="text-danger" i18n="contact@@invalidEmailError">Please, provide a valid email address.</small>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">{{'contact.message' | translate}}:</label>
+                        <textarea [class.is-invalid]="senderMessage?.invalid && senderMessage?.touched" name="message" [placeholder]="'contact.messagePlaceHolder' | translate" formControlName="message" required></textarea>
+                        <div class="warnings" *ngIf="(senderMessage?.invalid && senderMessage?.touched) || senderMessage?.dirty">
+                            <!--question mark(?) is a safe navigation operator-->
+<!--                            <small *ngIf="senderMessage.errors?.required" class="text-danger">{{'contact.requiredMessageError' | translate}}.</small>-->
+                        </div>
+                    </div>
+                    <input type="submit" [value]="'contact.send' | translate">
+                </form>
+            </div>
+        </div>
+        <div class="right-side"></div>
+    </div>
+    <img loading="lazy" height="705" class="illustration" [src]="showCaricature" name="caricature" id="caricature" alt="{{person.name}}">
+    <div class="half-circle"></div>
+</section>

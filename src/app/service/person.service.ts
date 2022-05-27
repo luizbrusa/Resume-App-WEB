@@ -3,36 +3,52 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConstants } from '../app-constants';
 import { Person } from '../model/person';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
+  private url: string = AppConstants.urlPath + 'pessoa/';
+
   constructor(private http: HttpClient) { }
 
   listarPessoas(): Observable<any> {
-    return this.http.get(AppConstants.urlPerson);
+    return this.http.get(this.url);
   }
 
   inserirPessoa(pessoa: any): Observable<any> {
-    return this.http.post(AppConstants.urlPerson, pessoa);
+    return this.http.post(this.url, pessoa);
   }
 
   atualizarPessoa(pessoa: any): Observable<any> {
-    return this.http.put(AppConstants.urlPerson, pessoa);
+    return this.http.put(this.url, pessoa);
   }
 
   excluirPessoa(id: string): Observable<any> {
-    return this.http.delete(AppConstants.urlPerson + id, {responseType: 'text'});
+    return this.http.delete(this.url + id, {responseType: 'text'});
   }
 
-  localizarPessoa(id?: string): Observable<any> {
-    return this.http.get(AppConstants.urlPerson + id);
+  localizarPessoa(id: string | null): Observable<any> {
+    return this.http.get(this.url + id);
   }
 
   localizarPersonUser(loginUser: string): Observable<any> {
-    return this.http.get(AppConstants.urlPerson + 'usuario/' + loginUser);
+    return this.http.get(this.url + 'usuario/' + loginUser);
+  }
+
+  get getPerson(): Person {
+    if (!environment.person.id) {
+      this.localizarPessoa(localStorage.getItem('personId')).subscribe({
+        next: data => {
+          environment.person = data;
+        },
+        error: (erro) => console.error('Erro ao Buscar Person: ' + erro)
+      });
+    }
+
+    return environment.person;
   }
 
   emitirRelatorioPessoas() {

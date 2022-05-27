@@ -9,8 +9,6 @@ export class InterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Token: ' + localStorage.getItem('token'));
-    
     if (AppConstants.isUsuarioAutenticado) {
       const token = `Bearer ${localStorage.getItem('token')}`;
 

@@ -1,0 +1,195 @@
+<h3 style="padding: 10px;">Experience Register</h3>
+
+<form style="padding: 10px;" #formValidate="ngForm" >
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="javascript:void(0)" (click)="onclickExperience()" id="linkExperience">Experience</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)" (click)="onclickInternationalizations()" id="linkInternationalization">Internationalizations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" (click)="onclickTechnologies()" id="linkTechnology">Technologies</a>
+        </li>
+    </ul>
+
+    <div class="form-group col-md-12" name="divTabs" id="divExperience" style="display:inherit">
+        <br>
+        <div class="form-row">
+            <div class="form-group col-md-1">
+                <label for="id">ID</label>
+                <input type="text" name="id" id="id" [(ngModel)]="experience.id" class="form-control" readonly autocomplete="false">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="position">Position</label>
+                <span style="color: red;" *ngIf="positionValidate.invalid"> *</span>
+                <input type="text" [(ngModel)]="experience.position" #positionValidate="ngModel" name="position" id="position" class="form-control" autocomplete="false" required="true">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="startAt">Start At</label>
+                <span style="color: red;" *ngIf="startAtValidate.invalid"> *</span>
+                <div class="input-group">
+                    <input type="text" name="startAt" id="startAt" class="form-control" placeholder="MM/dd/yyyy" #startAtValidate="ngModel" ngbDatepicker #startAt="ngbDatepicker" [(ngModel)]="experience.startAt">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary" (click)="startAt.toggle()"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="endAt">End At</label>
+                <span style="color: red;" *ngIf="endAtValidate.invalid"> *</span>
+                <div class="input-group">
+                    <input type="text" name="endAt" id="endAt" class="form-control" placeholder="MM/dd/yyyy" #endAtValidate="ngModel" ngbDatepicker #endAt="ngbDatepicker" [(ngModel)]="experience.endAt">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary" (click)="endAt.toggle()"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="companyName">Company Name</label>
+                <span style="color: red;" *ngIf="companyNameValidate.invalid"> *</span>
+                <input type="text" [(ngModel)]="experience.companyName" #companyNameValidate="ngModel" name="companyName" id="companyName" class="form-control" autocomplete="false">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="website">Website</label>
+                <span style="color: red;" *ngIf="websiteValidate.invalid"> *</span>
+                <input type="text" [(ngModel)]="experience.website" #websiteValidate="ngModel" name="website" id="website" class="form-control" autocomplete="false">
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group mb-3">
+                    <label for="logo">Logo</label>
+                    <span style="color: red;" *ngIf="logoValidate.invalid"> *</span>
+                    <input name="logo" id="logo" type="text" class="form-control" [(ngModel)]="experience.logoName" readonly placeholder="Logo" required="true" #logoValidate="ngModel">
+                    <input class="btn btn-info" type="file" style="display: none" (change)="selectLogoExp($event)" #logoExpUpload accept=".png, .jpg, .jpeg"/>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" (click)="logoExpUpload.click()">Change</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="input-group mb-3">
+                    <label for="backgroundUrl">Background URL</label>
+                    <span style="color: red;" *ngIf="backgroundUrlValidate.invalid"> *</span>
+                    <input name="backgroundUrl" id="backgroundUrl" type="text" class="form-control" [(ngModel)]="experience.backgroundUrlName" readonly placeholder="Background URL" required="true" #backgroundUrlValidate="ngModel">
+                    <input class="btn btn-info" type="file" style="display: none" (change)="selectBackgroundUrlExp($event)" #backgroundUrlExpUpload accept=".png, .jpg, .jpeg"/>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" (click)="backgroundUrlExpUpload.click()">Change</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--                            INTERNATIONALIZATIONS                 -->
+    <div class="form-row" name="divTabs" id="divInternationalization" style="display:none">
+        <div class="card text-center">
+            <br>
+            <div class="card-body" style="padding-left: 1px;">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <textarea [(ngModel)]="internExp.description" class="form-control" name="ie_description" id="ie_description" cols="30" rows="6">Description</textarea>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <input name="ie_langage" id="ie_language" type="text" class="form-control" [(ngModel)]="internExp.language">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button class="btn btn-primary" (click)="inserirInternExp()">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td>Language</td>
+                        <td>Description</td>
+                        <td>Excluir</td>
+                    </tr>
+                    <tr *ngFor="let int of experience.internationalizations; let idx = index">
+                        <td>{{int.id === undefined ? "ADD" : int.id}}</td>
+                        <td>{{int.language}}</td>
+                        <td style="text-align: justify;">{{int.description}}</td>
+                        <td><button class="btn btn-danger" (click)="deleteInternExp(int.id, idx)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--                            TECHNOLOGIES                 -->
+    <div class="form-row" name="divTabs" id="divTechnology" style="display:none">
+        <div class="card text-center">
+            <br>
+            <div class="card-body" style="padding-left: 1px;">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <input name="te_title" id="te_title" type="text" class="form-control" [(ngModel)]="technologyExp.title">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button class="btn btn-primary" (click)="inserirTechnologyExp()">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td>Title</td>
+                        <td>Excluir</td>
+                    </tr>
+                    <tr *ngFor="let tec of experience.technologies let idx = index">
+                        <td>{{tec.id === undefined ? "ADD" : tec.id}}</td>
+                        <td>{{tec.title}}</td>
+                        <td><button class="btn btn-danger" (click)="deleteTechnologyExp(tec.id, idx)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-row" style="padding-top: 15px;">
+        <div class="form-group col-md-10">
+            <button type="button" class="btn btn-primary" (click)="exit()" routerLinkActive="router-link-active" >Voltar</button>
+            <button type="button" class="btn btn-warning" (click)="newExperience()" style="margin-left: 10px;" >Novo</button>
+            <button type="button" class="btn btn-success" (click)="saveExperience()" [disabled]="formValidate.invalid" style="margin-left: 10px;" >Salvar</button>
+        </div>
+    </div>
+</form>
+
+<div class="form-row" name="divTabs" id="divExperienceList" style="display:inherit">
+    <div class="form-group col-md-12">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>Position</td>
+                    <td>Start At</td>
+                    <td>End At</td>
+                    <td>Company Name</td>
+                    <td>Website</td>
+                    <td>Logo</td>
+                    <td>Background URL</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </tr>
+                <tr *ngFor="let exp of experiences; let idx = index">
+                    <td>{{exp.id === undefined ? "ADD" : exp.id}}</td>
+                    <td>{{exp.position}}</td>
+                    <td>{{exp.startAt}}</td>
+                    <td>{{exp.endAt}}</td>
+                    <td>{{exp.companyName}}</td>
+                    <td>{{exp.website}}</td>
+                    <td>{{exp.logoName}}</td>
+                    <td>{{exp.backgroundUrlName}}</td>
+                    <td><button class="btn btn-success" (click)="editExperience(exp.id)">Edit</button></td>
+                    <td><button class="btn btn-danger" (click)="deleteExperience(exp.id, idx)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

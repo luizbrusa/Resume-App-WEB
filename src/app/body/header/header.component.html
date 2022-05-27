@@ -1,0 +1,45 @@
+<header>
+
+    <div class="child navbar-toggle">
+        <fa-icon [icon]="faBars" class="bar-icon" (click)="onToggleBar()"></fa-icon>
+    </div>
+
+    <div class="child logo-container" itemprop="brand">
+        <a (click)="resetMenu()" href="#" class="logo" itemprop="name" itemprop="logo">{{person.nickname}}</a>
+    </div>
+
+    <div class="child nav-container" #nav [hidden]="!hasMenuToggled">
+        <ul>
+            <li><a name="link" #linkAbout (click)="scrollTo('about',linkAbout)" href="javascript:void(0)" itemprop="url"><span itemprop="name">{{'header.aboutMe' | translate}}</span></a></li>
+            <li><a name="link" #linkExperience (click)="scrollTo('experience',linkExperience)" href="javascript:void(0)" itemprop="url"><span itemprop="name">{{'header.experiences' | translate}}</span></a></li>
+            <li><a name="link" #linkPosts (click)="scrollTo('posts',linkPosts)" href="javascript:void(0)" itemprop="url"><span itemprop="name">{{'header.posts' | translate}}</span></a></li>
+            <li><a name="link" #linkContact (click)="scrollTo('contact',linkContact)" href="javascript:void(0)" itemprop="url"><span itemprop="name">{{'header.contact' | translate}}</span></a></li>
+            <!-- TODO: update here -->
+            <li><a [download]="resumeName" (click)="resetMenu()" [href]="showResume" [title]="'header.downloadAsPdf' | translate" target="_blank">
+                <fa-icon [icon]="faCloudDownloadAlt" class="bar-icon"></fa-icon>
+            </a></li>
+        </ul>
+    </div>
+
+    <div class="child language-container">
+        <div class="frame">
+            <ul>
+                <li itemprop="availableLanguage">
+                    <a (click)="onLangChange('en')" [ngClass]="{'active': localeId.toString() === 'en'}" itemprop="name">EN</a>
+                </li>
+                <li itemprop="availableLanguage">
+                    <a (click)="onLangChange('pt-BR')" [ngClass]="{'active': localeId.toString() === 'pt-BR'}" itemprop="name">PT</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="child share-container" #shareBtn>
+        <fa-icon [icon]="faShareAlt" class="icon" (click)="share()" alt="share" itemprop="share"></fa-icon>
+    </div>
+
+    <div class="child signout-container" #signoutBtn>
+        <fa-icon [icon]="faSignOutAlt" class="icon" (click)="signOut()" alt="signOut" itemprop="signOut"></fa-icon>
+    </div>
+
+</header>
