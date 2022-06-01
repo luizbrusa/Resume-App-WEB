@@ -51,7 +51,6 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
       this.experiencesOrdered.sort(this.sortService.sort("position", "desc"));       
       this.backgroundUrl = this.retrieveBackgroundUrl();
       this.updateMobileNavigationView();
-//      this.preloadBounderyImages(this.experiences.map(xp => xp.backgroundUrl));
       this.preloadBounderyImages(this.experiences.map(xp => xp.backgroundUrlTypeFile + ',' + xp.backgroundUrl));
     }
   }
@@ -135,8 +134,9 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
   }
 
   private retrieveBackgroundUrl(): string {
-//    return this.experiences[this.currentPosition - 1].backgroundUrl;
-    return this.experiences[this.currentPosition - 1].backgroundUrlTypeFile + ',' + this.experiences[this.currentPosition - 1].backgroundUrl;
+//    return this.experiences[this.currentPosition - 1].backgroundUrlTypeFile + ',' + this.experiences[this.currentPosition - 1].backgroundUrl;
+    let expAux: Experience = this.experiencesOrdered.filter(elem => elem.position == this.currentPosition)[0];
+    return expAux.backgroundUrlTypeFile + ',' + expAux.backgroundUrl;
   }
 
   private updateMobileNavigationView() {

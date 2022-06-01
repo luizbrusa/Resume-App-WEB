@@ -1,6 +1,6 @@
 import { Internationalization } from "./internationalization";
 import { Media } from "./media";
-import { Person } from "./person";
+import { Pessoa } from "./person";
 import { Technology } from "./technology";
 
 export class Experience {
@@ -18,7 +18,7 @@ export class Experience {
     backgroundUrlTypeFile: string;
     backgroundUrlName: string;
 
-    person: Person = new Person();
+    pessoa: Pessoa = new Pessoa();
 
     internationalizations: Array<Internationalization>;
     technologies: Array<Technology>;

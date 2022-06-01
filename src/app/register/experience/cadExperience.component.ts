@@ -3,11 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Experience } from 'src/app/model/experience';
 import { Internationalization } from 'src/app/model/internationalization';
-import { Person } from 'src/app/model/person';
+import { Pessoa } from 'src/app/model/person';
 import { Technology } from 'src/app/model/technology';
 import { ExperienceService } from 'src/app/service/experience.service';
 import { InternationalizationService } from 'src/app/service/internationalization.service';
-import { PersonService } from 'src/app/service/person.service';
 import { TechnologyService } from 'src/app/service/technology.service';
 
 @Injectable()
@@ -29,7 +28,6 @@ export class FormataDataAdapter extends NgbDateAdapter<string> {
   }
 
   toModel(date: NgbDateStruct): string {
-//    return date ? formatar(date.day) + this.DELIMITER + formatar(date.month) + this.DELIMITER + date.year : '';
     return date ? formatar(date.month) + this.DELIMITER + formatar(date.day) + this.DELIMITER + date.year : '';
   }
 }
@@ -53,7 +51,6 @@ export class FormataData extends NgbDateParserFormatter {
   }
 
   format(date: NgbDateStruct | null): string {
-//    return date ? formatar(date.day) + this.DELIMITER + formatar(date.month) + this.DELIMITER + date.year : '';
     return date ? formatar(date.month) + this.DELIMITER + formatar(date.day) + this.DELIMITER + date.year : '';
   }
 }
@@ -77,29 +74,27 @@ function formatar(valor: any) {
 })
 export class CadExperienceComponent implements OnInit {
 
-  person: Person = new Person();
+  idPerson: string | null;
   experience: Experience = new Experience();
-  internExp: Internationalization = new Internationalization();
+  internationalization: Internationalization = new Internationalization();
   technologyExp: Technology = new Technology();
   experiences: Array<Experience> = new Array<Experience>();
 
   constructor(private routeActive: ActivatedRoute, private router: Router, 
     private experienceService: ExperienceService,
-    private personService: PersonService,
     private internationalizationService: InternationalizationService,
     private technologyService: TechnologyService) { }
 
   ngOnInit(): void {
-    let idPerson = this.routeActive.snapshot.paramMap.get('idPerson');
+    this.idPerson = this.routeActive.snapshot.paramMap.get('idPerson');
 
-    if (!idPerson) {
-      idPerson = localStorage.getItem('personId');
+    if (!this.idPerson) {
+      this.idPerson = localStorage.getItem('personId');
     }
 
-    if (idPerson) {
-      this.personService.localizarPessoa(idPerson).subscribe(data => {
-        this.person = data;
-        this.experiences = this.person.experiences;
+    if (this.idPerson) {
+      this.experienceService.listarExperiencesPessoa(this.idPerson).subscribe(data => {
+        this.experiences = data;
       });
     }
   }
@@ -171,8 +166,13 @@ export class CadExperienceComponent implements OnInit {
   }
 
   saveExperience() {
+    if (this.idPerson) {
+      let pessoa: Pessoa = new Pessoa();
+      pessoa.id = this.idPerson;
+      this.experience.pessoa = pessoa;
+    }
+
     if (this.experience.id != null) {
-      console.log(JSON.stringify(this.experience));
       this.experienceService.atualizarExperience(this.experience).subscribe(data => {
         console.log('Atualizou: ' + data);
       });
@@ -237,8 +237,8 @@ export class CadExperienceComponent implements OnInit {
       this.experience.internationalizations = new Array<Internationalization>();
     }
 
-    this.experience.internationalizations.push(this.internExp);
-    this.internExp = new Internationalization();
+    this.experience.internationalizations.push(this.internationalization);
+    this.internationalization = new Internationalization();
   }
 
   deleteInternExp(id: number | undefined, index: number) {

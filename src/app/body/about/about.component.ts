@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
-import { Person } from "src/app/model/person";
+import { Pessoa } from "src/app/model/person";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -12,7 +12,7 @@ import { environment } from "src/environments/environment";
 })
 export class AboutComponent implements OnInit {
 
-  person: Person = new Person();
+  pessoa: Pessoa = new Pessoa();
 
   constructor(
     private library: FaIconLibrary
@@ -21,25 +21,19 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.person = environment.person;
+    this.pessoa = environment.person;
   }
 
   get calcAge(): string {
-//    console.log(dateString);
-//    const birthday: Date = new Date(dateString);
-
-//    console.log('Teste');
-
-//    const ageDifMs: number = Date.now() - birthday.getTime();
-//    const ageDate: Date = new Date(ageDifMs); // miliseconds from epoch
-//    return Math.abs(ageDate.getFullYear() - 1970);
-
-    return '42';
+    const birthday: Date = new Date(this.pessoa.birth);
+    const ageDifMs: number = Date.now() - birthday.getTime();
+    const ageDate: Date = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getFullYear() - 1970).toString();
   }
 
   get showPerfilImage() {
-    if (this.person.perfilImageTypeFile) {
-      return this.person.perfilImageTypeFile + ',' + this.person.perfilImage;
+    if (this.pessoa.perfilImageTypeFile) {
+      return this.pessoa.perfilImageTypeFile + ',' + this.pessoa.perfilImage;
     } else {
       return '';
     }

@@ -6,7 +6,7 @@
     "header": {
         "aboutMe": "About Me",
         "experiences": "Experiences",
-        "posts": "Posts",
+        "posts": "Reviews",
         "contact": "Contact",
         "downloadAsPdf": "Download as PDF"
     },
@@ -33,12 +33,12 @@
     },
 
     "post": {
-        "posts": "Posts",
+        "posts": "Customer Reviews",
         "previous": "Previous",
         "next": "Next",
         "readMore": "Read more",
         "of": "of",
-        "synopsis": "In countless times, an article or a simple piece of information saved me hours of research, so whenever is possible, I try to do my humble contributions:"
+        "synopsis": "More important than your opinion of yourself, is the opinion of others about you. On numerous occasions, I was able to assist clients in routine activities, and what some of them said about it:"
     },
 
     "experience": {

@@ -6,7 +6,7 @@
     "header": {
         "aboutMe": "Sobre Mim",
         "experiences": "Experiências",
-        "posts": "Posts",
+        "posts": "Opiniões",
         "contact": "Contato",
         "downloadAsPdf": "Baixar como PDF"
     },
@@ -33,12 +33,12 @@
     },
 
     "post": {
-        "posts": "Posts",
+        "posts": "Opiniões de Clientes",
         "previous": "Anterior",
         "next": "Próximo",
         "readMore": "Leia mais",
         "of": "de",
-        "synopsis": "In countless times, an article or a simple piece of information saved me hours of research, so whenever is possible, I try to do my humble contributions:"
+        "synopsis": "Mais importante do que a sua opinião sobre si, é a opinião dos outros sobre você. Em inúmeros momentos, pude auxiliar clientes em atividades rotineiras, e o que alguns dizem a respeito:"
     },
 
     "experience": {

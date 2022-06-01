@@ -15,20 +15,20 @@ export class ExperienceTimelineComponent implements OnInit, OnDestroy {
   private _currentPosition: number;
   private offsetWidth: number;
 
+  @ViewChild("line") line: ElementRef;
+
   @Output() timelineChanged = new EventEmitter<number>();
 
   public removeEventListener: () => void;
-
-  @ViewChild("line") line: ElementRef;
 
   constructor(
     private elRef: ElementRef,
     private renderer: Renderer2,
     private localeService: LocaleService
   ) {
-    if (!this.line) {
-      this.line = new ElementRef(document.getElementsByClassName('line')[0]);
-    }
+//    if (!this.line) {
+//      this.line = new ElementRef(document.getElementById('line'));
+//    }
   }
 
   @Input() get currentPosition(): number {
@@ -49,8 +49,12 @@ export class ExperienceTimelineComponent implements OnInit, OnDestroy {
   set experiences(value: Array<Experience>) {
       if(value) {
         this._experiences = value;
-        this.populateExperienceTimeline();
+//        this.populateExperienceTimeline();
       }
+  }
+
+  ngAfterViewInit() {
+    this.populateExperienceTimeline();
   }
 
   ngOnInit() : void {
@@ -70,14 +74,16 @@ export class ExperienceTimelineComponent implements OnInit, OnDestroy {
   }
 
   updateTimelineNavigation() {
-    const activePreviousElem = this.line.nativeElement.querySelector(".milestone.active.current");
-    if (activePreviousElem) {
-      this.renderer.removeClass(activePreviousElem, "current");
-    }
+    if (this.line) {
+      const activePreviousElem = this.line.nativeElement.querySelector(".milestone.active.current");
+      if (activePreviousElem) {
+        this.renderer.removeClass(activePreviousElem, "current");
+      }
 
-    const targetElem = this.line.nativeElement.querySelector(`div[id-position="${this.currentPosition}"]`);
-    if (targetElem) {
-      this.renderer.addClass(targetElem, "current");
+      const targetElem = this.line.nativeElement.querySelector(`div[id-position="${this.currentPosition}"]`);
+      if (targetElem) {
+        this.renderer.addClass(targetElem, "current");
+      }
     }
   }
 
@@ -90,45 +96,58 @@ export class ExperienceTimelineComponent implements OnInit, OnDestroy {
 
   private retrieveTodayDateAsString(): string {
     const today = new Date();
-    return `${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`;
+//    return `${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`;
+
+    let todayString = '';
+    if (today.getMonth()+1 < 10) {
+      todayString = '0';
+    }
+    todayString = todayString + (today.getMonth()+1) + '/';
+    if (today.getDate() < 10) {
+      todayString = todayString + '0';
+    }
+    todayString = todayString + (today.getDate()) + '/' + today.getFullYear();
+    
+    return todayString;
   }
 
   populateExperienceTimeline(): void {
-    let dates: string[] = this._experiences.map(experience => experience.startAt);
+    if (this.line.nativeElement && this._experiences.length > 0) {
+      let dates: string[] = this._experiences.map(experience => experience.startAt);
 
-    // Adding the current day in order to complete the timeline.
-    dates.push(this.retrieveTodayDateAsString());
-    
-    if (dates && dates.length < 2) {
-      this.renderer.setStyle(this.elRef.nativeElement, "visibility", "hidden");
-    }
-    else if (dates.length >= 2) {
-      const daysBetween: number = this.daysBetween(dates[0], dates[dates.length - 1]);
-      const oneDayInPixels: number = this.offsetWidth / daysBetween;
+      // Adding the current day in order to complete the timeline.
+      dates.push(this.retrieveTodayDateAsString());
+      if (dates && dates.length < 2) {
+        this.renderer.setStyle(this.elRef.nativeElement, "visibility", "hidden");
+      }
+      else if (dates.length >= 2) {
+        const daysBetween: number = this.daysBetween(dates[0], dates[dates.length - 1]);
+        const oneDayInPixels: number = this.offsetWidth / daysBetween;
 
-      // Draw first date milestone
-      this.renderer.appendChild(this.line.nativeElement, this.createMilestone(1, 0, dates[0]));
+        // Draw first date milestone
+        this.renderer.appendChild(this.line.nativeElement, this.createMilestone(1, 0, dates[0]));
 
-      let i: number;
-      const lastFrameLoop = dates.length - 1;
+        let i: number;
+        const lastFrameLoop = dates.length - 1;
 
-      // Draw the middle date milestones
-      for (i = 1; i < lastFrameLoop; i++) {
-        const periodInDays: number = this.daysBetween(dates[0], dates[i]);
-        const periodWidth: number = periodInDays * oneDayInPixels;
-        const milestoneElement = this.createMilestone((i + 1), periodWidth, dates[i]);
+        // Draw the middle date milestones
+        for (i = 1; i < lastFrameLoop; i++) {
+          const periodInDays: number = this.daysBetween(dates[0], dates[i]);
+          const periodWidth: number = periodInDays * oneDayInPixels;
+          const milestoneElement = this.createMilestone((i + 1), periodWidth, dates[i]);
 
-        if (i == lastFrameLoop - 1) {
-          this.renderer.addClass(milestoneElement, "current");
+          if (i == lastFrameLoop - 1) {
+            this.renderer.addClass(milestoneElement, "current");
+          }
+
+          this.renderer.appendChild(this.line.nativeElement, milestoneElement);
         }
 
-        this.renderer.appendChild(this.line.nativeElement, milestoneElement);
+        // Draw last date milestone ( the current frame )
+        const lastDataMilestone = this.createCurrentTriangle(i + 1);
+        this.renderer.appendChild(this.line.nativeElement, lastDataMilestone);
+        this.renderer.setStyle(this.elRef.nativeElement, "visibility", "visible");
       }
-
-      // Draw last date milestone ( the current frame )
-      const lastDataMilestone = this.createCurrentTriangle(i + 1);
-      this.renderer.appendChild(this.line.nativeElement, lastDataMilestone);
-      this.renderer.setStyle(this.elRef.nativeElement, "visibility", "visible");
     }
   }
 

@@ -3,9 +3,9 @@
         <li *ngFor="let post of _posts" itemprop="techArticle">
             <div class="card" [@fadeInOut] itemprop="item">
                 <a href="{{ post.http }}" rel="nofollow" target="_blank" itemprop="url">
-                    <div class="thumbnail" [style.backgroundImage]="'url('+post.thumbnail+')'">
-                        <meta itemprop="thumbnailUrl" content="{{ post.thumbnail }}" />
-                        <meta itemprop="image" content="{{ post.thumbnail }}" />
+                    <div class="thumbnail" [style.backgroundImage]="'url(' + post.thumbnailTypeFile + ',' + post.thumbnail + ')'">
+                        <meta itemprop="thumbnailUrl" content="{{ post.thumbnailTypeFile + ',' + post.thumbnail }}" />
+                        <meta itemprop="image" content="{{ post.thumbnailTypeFile + ',' + post.thumbnail }}" />
                         <span class="date" itemprop="datePublished">{{ post.date | safariDateFormatter | localizedDate:'MMM yyyy' }}</span>
                     </div>
                     <div class="content">

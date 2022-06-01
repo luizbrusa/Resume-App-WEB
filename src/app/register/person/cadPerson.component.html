@@ -1,6 +1,7 @@
 <h3 style="padding: 10px;">Personal Register</h3>
 
-<button type="button" class="btn btn-success" (click)="cadExperience()" style="margin-left: 10px;" >Experiences</button>
+<button type="button" class="btn btn-primary" (click)="cadExperience()" style="margin-left: 10px;" >Experiences</button>
+<button type="button" class="btn btn-primary" (click)="cadPost()" style="margin-left: 10px;" >Posts</button>
 <br>
 <form style="padding: 10px;" #formValidate="ngForm" >
     <ul class="nav nav-tabs">
@@ -9,9 +10,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="javascript:void(0)" (click)="onclickMedias()" id="linkMedias">Social Media</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" (click)="onclickPosts()" id="linkPosts">Posts</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="javascript:void(0)" (click)="onclickHobbies()" id="linkHobbies">Hobbies</a>
@@ -27,29 +25,29 @@
         <div class="form-row">
             <div class="form-group col-md-1">
                 <label for="id">ID</label>
-                <input type="text" name="id" id="id" [(ngModel)]="person.id" class="form-control" readonly autocomplete="false">
+                <input type="text" name="id" id="id" [(ngModel)]="pessoa.id" class="form-control" readonly autocomplete="false">
             </div>
             <div class="form-group col-md-3">
                 <label for="nickname">Nickname</label>
                 <span style="color: red;" *ngIf="nicknameValidate.invalid"> *</span>
-                <input type="text" [(ngModel)]="person.nickname" #nicknameValidate="ngModel" name="nickname" id="nickname" class="form-control" autocomplete="false" required="true">
+                <input type="text" [(ngModel)]="pessoa.nickname" #nicknameValidate="ngModel" name="nickname" id="nickname" class="form-control" autocomplete="false" required="true">
             </div>
             <div class="form-group col-md-8">
                 <label for="nome">Nome</label>
                 <span style="color: red;" *ngIf="nomeValidate.invalid"> *</span>
-                <input type="text" [(ngModel)]="person.name" #nomeValidate="ngModel" name="nome" id="nome" class="form-control" autocomplete="false" required="true">
+                <input type="text" [(ngModel)]="pessoa.name" #nomeValidate="ngModel" name="nome" id="nome" class="form-control" autocomplete="false" required="true">
             </div>
             <div class="form-group col-md-6">
                 <label for="email">E-mail</label>
                 <span style="color: red;" *ngIf="emailValidate.invalid"> *</span>
-                <input type="email" [(ngModel)]="person.email" #emailValidate="ngModel" name="email" id="email" class="form-control" autocomplete="false" required="true">
+                <input type="email" [(ngModel)]="pessoa.email" #emailValidate="ngModel" name="email" id="email" class="form-control" autocomplete="false" required="true">
             </div>
         
             <div class="form-group col-md-2">
                 <label for="birth">Date of Birth</label>
                 <span style="color: red;" *ngIf="birthValidate.invalid"> *</span>
                 <div class="input-group">
-                    <input type="text" name="birth" id="birth" class="form-control" placeholder="dd/mm/yyyy" #birthValidate="ngModel" ngbDatepicker #birth="ngbDatepicker" [(ngModel)]="person.birth">
+                    <input type="text" name="birth" id="birth" class="form-control" placeholder="MM/dd/yyyy" #birthValidate="ngModel" ngbDatepicker #birth="ngbDatepicker" [(ngModel)]="pessoa.birth">
                     <div class="input-group-append">
                         <button type="button" class="btn btn-primary" (click)="birth.toggle()"></button>
                     </div>
@@ -58,19 +56,19 @@
             <div class="form-group col-md-2">
                 <label for="phone">Phone</label>
                 <span style="color: red;" *ngIf="phoneValidate.invalid"> *</span>
-                <input type="text" [(ngModel)]="person.phone" #phoneValidate="ngModel" name="phone" id="phone" class="form-control" autocomplete="false">
+                <input type="text" [(ngModel)]="pessoa.phone" #phoneValidate="ngModel" name="phone" id="phone" class="form-control" autocomplete="false">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="location">Location</label>
                 <span style="color: red;" *ngIf="locationValidate.invalid"> *</span>
-                <input type="text" [(ngModel)]="person.location" #locationValidate="ngModel" name="location" id="location" class="form-control" autocomplete="false" required="true">
+                <input type="text" [(ngModel)]="pessoa.location" #locationValidate="ngModel" name="location" id="location" class="form-control" autocomplete="false" required="true">
             </div>
             <div class="form-group col-md-6">
                 <label for="resume">Resume</label>
                 <div class="input-group mb-3">
-                    <input name="resume" id="resume" type="text" class="form-control" [(ngModel)]="person.resumeName" readonly>
+                    <input name="resume" id="resume" type="text" class="form-control" [(ngModel)]="pessoa.resumeName" readonly>
                     <input class="btn btn-info" type="file" style="display: none" (change)="selectResume($event)" #resumeUpload accept=".pdf"/>
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="button" (click)="resumeUpload.click()">Change</button>
@@ -86,11 +84,11 @@
                 <div class="card-body" style="padding-left: 1px;">
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <textarea [(ngModel)]="internPerson.description" class="form-control" name="ip_description" id="ip_description" cols="30" rows="6">Description</textarea>
+                            <textarea [(ngModel)]="internationalization.description" class="form-control" name="ip_description" id="ip_description" cols="30" rows="6">Description</textarea>
                         </div>
 
                         <div class="form-group col-md-4">
-                            <input name="ip_langage" id="ip_language" type="text" class="form-control" [(ngModel)]="internPerson.language">
+                            <input name="ip_langage" id="ip_language" type="text" class="form-control" [(ngModel)]="internationalization.language">
                         </div>
                         <div class="form-group col-md-2">
                             <button class="btn btn-primary" (click)="inserirInternPerson()">Adicionar</button>
@@ -106,7 +104,7 @@
                             <td>Description</td>
                             <td>Excluir</td>
                         </tr>
-                        <tr *ngFor="let int of person.internationalizations; let idx = index">
+                        <tr *ngFor="let int of pessoa.internationalizations; let idx = index">
                             <td>{{int.id === undefined ? "ADD" : int.id}}</td>
                             <td>{{int.language}}</td>
                             <td style="text-align: justify;">{{int.description}}</td>
@@ -153,60 +151,12 @@
                             <td>Icon</td>
                             <td>Excluir</td>
                         </tr>
-                        <tr *ngFor="let med of person.medias; let idx = index">
+                        <tr *ngFor="let med of pessoa.medias; let idx = index">
                             <td>{{med.id === undefined ? "ADD" : med.id}}</td>
                             <td>{{med.title}}</td>
                             <td>{{med.http}}</td>
                             <td>{{med.icon}}</td>
                             <td><button class="btn btn-danger" (click)="deleteMedia(med.id, idx)">Excluir</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!--                 POSTS                              -->
-    <div class="form-group col-md-12" name="divTabs" id="divPosts" style="display:none">
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <br>
-                <input type="text" [(ngModel)]="post.http" id="p_http" name="p_http" class="form-control" placeholder="Http">
-            </div>
-
-            <div class="form-group col-md-4">
-                <br>
-                <input type="text" [(ngModel)]="post.date" id="p_date" name="p_date" class="form-control" placeholder="Date">
-            </div>
-
-            <div class="form-group col-md-2">
-                <br>
-                <input type="text" [(ngModel)]="post.thumbnail" id="p_thumbnail" name="p_thumbnail" class="form-control" placeholder="Thumbnail">
-            </div>
-
-            <div class="form-group col-md-2">
-                <br>
-                <button class="btn btn-primary" (click)="inserirPost()">Adicionar</button>
-            </div>
-        </div>
-            
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>ID</td>
-                            <td>Http</td>
-                            <td>Date</td>
-                            <td>Thumbnail</td>
-                            <td>Excluir</td>
-                        </tr>
-                        <tr *ngFor="let pst of person.posts; let idx = index">
-                            <td>{{pst.id === undefined ? "ADD" : pst.id}}</td>
-                            <td>{{pst.http}}</td>
-                            <td>{{pst.date}}</td>
-                            <td>{{pst.thumbnail}}</td>
-                            <td><button class="btn btn-danger" (click)="deletePost(pst.id, idx)">Excluir</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -243,7 +193,7 @@
                             <td>Icon</td>
                             <td>Excluir</td>
                         </tr>
-                        <tr *ngFor="let hob of person.hobbies; let idx = index">
+                        <tr *ngFor="let hob of pessoa.hobbies; let idx = index">
                             <td>{{hob.id === undefined ? "ADD" : hob.id}}</td>
                             <td>{{hob.title}}</td>
                             <td>{{hob.icon}}</td>

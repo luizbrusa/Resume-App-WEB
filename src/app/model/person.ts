@@ -4,7 +4,7 @@ import { Internationalization } from "./internationalization";
 import { Media } from "./media";
 import { Post } from "./post";
 
-export class Person {
+export class Pessoa {
 
     id: string;
     name: string;

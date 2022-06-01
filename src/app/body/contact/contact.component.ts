@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { faEnvelope, faPhone, faTimes, faMapMarkerAlt, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ContactService } from "./contact.service";
 import { Contact } from "../../model/contact.model";
 import { environment } from '../../../environments/environment';
-import { Person } from "src/app/model/person";
+import { Pessoa } from "src/app/model/person";
+import { ContactService } from "src/app/service/contact.service";
 
 @Component({
   selector: "app-contact",
@@ -14,7 +14,7 @@ import { Person } from "src/app/model/person";
 
 export class ContactComponent implements OnInit {
 
-  person: Person = new Person();
+  person: Pessoa = new Pessoa();
 
   name: string;
   email: string;
@@ -76,13 +76,20 @@ export class ContactComponent implements OnInit {
     this.faTimes = faTimes;
   }
 
-  saveContact(contact: Contact) {
-//    this.contactService.createContact(contact).then(() => {
-//      this.displayUserInterfaceMessage(true);
-//    })
-//    .catch(error => {
-//      this.displayUserInterfaceMessage(false);
-//    });
+  sendContact(contact: Contact) {
+    let email = contact.email;
+    let message = contact.message;
+
+    contact.message = 'Contato de - ' + email + ' Mensagem - ' + message;
+    contact.email = this.person.email;
+    this.contactService.enviarEmail(contact).subscribe(data => {
+      if (data.code == '200') {
+        alert(data.error);
+      } else {
+        alert('Erro ao Enviar e-mail: ' + data.error);
+      }
+    });
+    this.contactForm.reset();
   }
 
   displayUserInterfaceMessage(hasBeenSuccessfuly: boolean) {
@@ -107,7 +114,7 @@ export class ContactComponent implements OnInit {
       date: new Date()
     } as Contact;
 
-    this.saveContact(contactValues);
+    this.sendContact(contactValues);
   }
 
   get showCaricature() {

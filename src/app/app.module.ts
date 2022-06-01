@@ -12,6 +12,7 @@ import { HttpInterceptorModule } from './service/interceptor.service';
 
 import { LoginComponent } from './login/login.component';
 import { CadExperienceComponent } from './register/experience/cadExperience.component';
+import { CadPostComponent } from './register/post/cadPost.component';
 import { CadPersonComponent } from './register/person/cadPerson.component';
 
 import { CommonModule, registerLocaleData } from '@angular/common';
@@ -31,6 +32,7 @@ registerLocaleData(localePt, "pt-BR");
     AppComponent,
     LoginComponent,
     CadExperienceComponent,
+    CadPostComponent,
     CadPersonComponent
   ],
   imports: [

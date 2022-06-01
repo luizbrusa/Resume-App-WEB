@@ -1,4 +1,4 @@
-import { Person } from "./person";
+import { Pessoa } from "./person";
 
 export class Internationalization {
 
@@ -10,6 +10,6 @@ export class Internationalization {
     country: string;
     role: string;
 
-    person: Person = new Person();
+    pessoa: Pessoa = new Pessoa();
 
 }

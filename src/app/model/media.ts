@@ -1,5 +1,5 @@
 import { IconName } from "@fortawesome/free-solid-svg-icons";
-import { Person } from "./person";
+import { Pessoa } from "./person";
 
 export class Media {
 
@@ -8,6 +8,6 @@ export class Media {
     http: string;
     icon: IconName;
 
-    person: Person = new Person();
+    pessoa: Pessoa = new Pessoa();
 
 }

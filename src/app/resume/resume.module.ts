@@ -10,7 +10,6 @@ import { WelcomeModule } from "../body/welcome/welcome.molule";
 import { ExperienceModule } from "../body/experience/experience.module";
 import { CoreModule } from "../core/core.module";
 import { PostsModule } from "../body/posts/posts.molule";
-import { ContactService } from "../body/contact/contact.service";
 import { FooterComponent } from "../body/footer/footer.component";
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
@@ -41,10 +40,7 @@ import { TranslateModule } from "@ngx-translate/core";
     ContactComponent,
     FooterComponent
   ],
-  exports: [ ResumeComponent ],
-  providers: [ 
-    ContactService 
-  ]
+  exports: [ ResumeComponent ]
 })
 
 export class ResumeModule { }

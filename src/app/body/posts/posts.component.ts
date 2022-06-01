@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { Person } from "src/app/model/person";
+import { Pessoa } from "src/app/model/person";
 import { environment } from "src/environments/environment";
 import { AbstractSwipeSection } from "../../core/shared/abstract.swipe.section";
 import { Post } from "../../model/post";
@@ -13,7 +13,7 @@ import { Post } from "../../model/post";
 })
 export class PostsComponent extends AbstractSwipeSection implements OnInit {
 
-  person: Person = new Person();
+  person: Pessoa = new Pessoa();
 
   currentPage: number = 1;
   resultsPerPage: number;
@@ -49,6 +49,14 @@ export class PostsComponent extends AbstractSwipeSection implements OnInit {
   }
 
   public disableNextNavigation(): boolean {
-    return this.currentPage === Math.ceil(this.person.posts?.length / this.resultsPerPage);
+    if (this.person && this.person.posts) {
+      if (this.person.posts.length > this.resultsPerPage) {
+        return this.currentPage === Math.ceil(this.person.posts.length / this.resultsPerPage);
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
   } 
 }

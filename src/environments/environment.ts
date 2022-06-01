@@ -2,11 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { Person } from "src/app/model/person";
+import { Pessoa } from "src/app/model/person";
 
 export const environment = {
   production: false,
-  person: new Person()
+  person: new Pessoa()
 };
 
 /*

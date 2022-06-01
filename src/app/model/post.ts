@@ -1,13 +1,18 @@
 import { Internationalization } from "./internationalization";
-import { Person } from "./person";
+import { Pessoa } from "./person";
 
 export class Post {
     id: number;
     http: string;
     date: string;
-    thumbnail: string;
+    thumbnail: string | ArrayBuffer | null;
+    thumbnailName: string;
+    thumbnailTypeFile: string;
+    file: string | ArrayBuffer | null;
+    fileName: string;
+    fileTypeFile: string;
 
-    person: Person = new Person();
+    pessoa: Pessoa = new Pessoa();
 
     internationalizations: Array<Internationalization> = new Array<Internationalization>();
 }

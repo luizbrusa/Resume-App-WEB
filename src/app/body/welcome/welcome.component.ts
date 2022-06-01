@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Person } from "src/app/model/person";
+import { Pessoa } from "src/app/model/person";
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 
 export class WelcomeComponent implements OnInit {
 
-  person: Person = new Person();
+  person: Pessoa = new Pessoa();
 
   constructor() {}
 

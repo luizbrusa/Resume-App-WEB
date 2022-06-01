@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConstants } from '../app-constants';
-import { Person } from '../model/person';
+import { Pessoa } from '../model/person';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -38,7 +38,7 @@ export class PersonService {
     return this.http.get(this.url + 'usuario/' + loginUser);
   }
 
-  get getPerson(): Person {
+  get getPerson(): Pessoa {
     if (!environment.person.id) {
       this.localizarPessoa(localStorage.getItem('personId')).subscribe({
         next: data => {

@@ -28,8 +28,12 @@ export class PostService {
     return this.http.delete(this.url + id, {responseType: 'text'});
   }
 
-  localizarPost(id?: string): Observable<any> {
+  localizarPost(id?: number): Observable<any> {
     return this.http.get(this.url + id);
+  }
+
+  listarPostsPessoa(idPessoa: string): Observable<any> {
+    return this.http.get(this.url + 'pessoa/' + idPessoa);
   }
 
 }

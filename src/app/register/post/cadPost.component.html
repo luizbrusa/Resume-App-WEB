@@ -1,0 +1,136 @@
+<h3 style="padding: 10px;">Post Register</h3>
+
+<button type="button" class="btn btn-primary" (click)="exit()" routerLinkActive="router-link-active" >Person</button>
+<br>
+<form style="padding: 10px;" #formValidate="ngForm" >
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="javascript:void(0)" (click)="onclickPost()" id="linkPost">Post</a>
+        </li>
+        <li class="nav-item" [style]="post.id? '' : 'pointer-events: none; opacity:0.6;'">
+          <a class="nav-link" href="javascript:void(0)" (click)="onclickInternationalizations()" id="linkInternationalization">Internationalizations</a>
+        </li>
+    </ul>
+
+    <div class="form-group col-md-12" name="divTabs" id="divPost" style="display:inherit">
+        <br>
+        <div class="form-row">
+            <div class="form-group col-md-1">
+                <label for="id">ID</label>
+                <input type="text" name="id" id="id" [(ngModel)]="post.id" class="form-control" readonly autocomplete="false">
+            </div>
+            <div class="form-group col-md-8">
+                <label for="http">Http</label>
+                <span style="color: red;" *ngIf="httpValidate.invalid"> *</span>
+                <input type="text" [(ngModel)]="post.http" #httpValidate="ngModel" name="http" id="http" class="form-control" autocomplete="false" required="true">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="date">Date</label>
+                <span style="color: red;" *ngIf="dateValidate.invalid"> *</span>
+                <div class="input-group">
+                    <input type="text" name="date" id="date" class="form-control" placeholder="MM/dd/yyyy" #dateValidate="ngModel" ngbDatepicker #date="ngbDatepicker" [(ngModel)]="post.date" required="true">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary" (click)="date.toggle()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="thumbnail">Thumbnail</label>
+                <div class="input-group mb-3">
+                    <input name="thumbnail" id="thumbnail" type="text" class="form-control" [(ngModel)]="post.thumbnailName" readonly placeholder="Thumbnail">
+                    <input class="btn btn-info" type="file" style="display: none" (change)="selectThumbnail($event)" #thumbnailUpload accept=".png, .jpg, .jpeg"/>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" (click)="thumbnailUpload.click()">Change</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-8">
+                <label for="file">File</label>
+                <div class="input-group mb-3">
+                    <input name="file" id="file" type="text" class="form-control" [(ngModel)]="post.fileName" readonly placeholder="File">
+                    <input class="btn btn-info" type="file" style="display: none" (change)="selectFile($event)" #fileUpload accept=".pdf"/>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="button" (click)="fileUpload.click()">Change</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--                            INTERNATIONALIZATIONS                 -->
+    <div class="form-row" name="divTabs" id="divInternationalization" style="display:none">
+        <div class="card text-center">
+            <br>
+            <div class="card-body" style="padding-left: 1px;">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <textarea [(ngModel)]="internationalization.description" class="form-control" name="ie_description" id="ie_description" cols="30" rows="6">Description</textarea>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <input name="ie_langage" id="ie_language" type="text" class="form-control" [(ngModel)]="internationalization.language" placeholder="Language">
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input name="ie_title" id="ie_title" type="text" class="form-control" [(ngModel)]="internationalization.title" placeholder="Title">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button class="btn btn-primary" (click)="inserirInternPost()">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>ID</td>
+                        <td>Language</td>
+                        <td>Description</td>
+                        <td>Excluir</td>
+                    </tr>
+                    <tr *ngFor="let int of post.internationalizations; let idx = index">
+                        <td>{{int.id === undefined ? "ADD" : int.id}}</td>
+                        <td>{{int.language}}</td>
+                        <td style="text-align: justify;">{{int.description}}</td>
+                        <td><button class="btn btn-danger" (click)="deleteInternPost(int.id, idx)">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-row" style="padding-top: 15px;">
+        <div class="form-group col-md-10">
+            <button type="button" class="btn btn-warning" (click)="newPost()" style="margin-left: 10px;" >Novo</button>
+            <button type="button" class="btn btn-success" (click)="savePost()" [disabled]="formValidate.invalid" style="margin-left: 10px;" >Salvar</button>
+        </div>
+    </div>
+</form>
+
+<div class="form-row" name="divTabs" id="divPostList" style="display:inherit">
+    <div class="form-group col-md-12">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>Date</td>
+                    <td>Http</td>
+                    <td>Thumbnail</td>
+                    <td>File</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </tr>
+                <tr *ngFor="let pst of posts; let idx = index">
+                    <td>{{pst.id === undefined ? "ADD" : pst.id}}</td>
+                    <td>{{pst.date}}</td>
+                    <td>{{pst.http}}</td>
+                    <td>{{pst.thumbnailName}}</td>
+                    <td>{{pst.fileName}}</td>
+                    <td><button class="btn btn-success" (click)="editPost(pst.id)">Edit</button></td>
+                    <td><button class="btn btn-danger" (click)="deletePost(pst.id, idx)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

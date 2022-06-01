@@ -1,14 +1,16 @@
 <h3 style="padding: 10px;">Experience Register</h3>
 
+<button type="button" class="btn btn-primary" (click)="exit()" routerLinkActive="router-link-active" >Person</button>
+<br>
 <form style="padding: 10px;" #formValidate="ngForm" >
     <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link active" href="javascript:void(0)" (click)="onclickExperience()" id="linkExperience">Experience</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" [style]="experience.id? '' : 'pointer-events: none; opacity:0.6;'">
           <a class="nav-link" href="javascript:void(0)" (click)="onclickInternationalizations()" id="linkInternationalization">Internationalizations</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" [style]="experience.id? '' : 'pointer-events: none; opacity:0.6;'">
             <a class="nav-link" href="javascript:void(0)" (click)="onclickTechnologies()" id="linkTechnology">Technologies</a>
         </li>
     </ul>
@@ -58,9 +60,9 @@
                 <input type="text" [(ngModel)]="experience.website" #websiteValidate="ngModel" name="website" id="website" class="form-control" autocomplete="false">
             </div>
             <div class="form-group col-md-4">
+                <label for="logo">Logo</label>
+                <span style="color: red;" *ngIf="logoValidate.invalid"> *</span>
                 <div class="input-group mb-3">
-                    <label for="logo">Logo</label>
-                    <span style="color: red;" *ngIf="logoValidate.invalid"> *</span>
                     <input name="logo" id="logo" type="text" class="form-control" [(ngModel)]="experience.logoName" readonly placeholder="Logo" required="true" #logoValidate="ngModel">
                     <input class="btn btn-info" type="file" style="display: none" (change)="selectLogoExp($event)" #logoExpUpload accept=".png, .jpg, .jpeg"/>
                     <div class="input-group-append">
@@ -69,9 +71,9 @@
                 </div>
             </div>
             <div class="form-group col-md-4">
+                <label for="backgroundUrl">Background URL</label>
+                <span style="color: red;" *ngIf="backgroundUrlValidate.invalid"> *</span>
                 <div class="input-group mb-3">
-                    <label for="backgroundUrl">Background URL</label>
-                    <span style="color: red;" *ngIf="backgroundUrlValidate.invalid"> *</span>
                     <input name="backgroundUrl" id="backgroundUrl" type="text" class="form-control" [(ngModel)]="experience.backgroundUrlName" readonly placeholder="Background URL" required="true" #backgroundUrlValidate="ngModel">
                     <input class="btn btn-info" type="file" style="display: none" (change)="selectBackgroundUrlExp($event)" #backgroundUrlExpUpload accept=".png, .jpg, .jpeg"/>
                     <div class="input-group-append">
@@ -89,13 +91,22 @@
             <div class="card-body" style="padding-left: 1px;">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <textarea [(ngModel)]="internExp.description" class="form-control" name="ie_description" id="ie_description" cols="30" rows="6">Description</textarea>
+                        <textarea [(ngModel)]="internationalization.description" class="form-control" name="ie_description" id="ie_description" cols="30" rows="6">Description</textarea>
                     </div>
 
-                    <div class="form-group col-md-4">
-                        <input name="ie_langage" id="ie_language" type="text" class="form-control" [(ngModel)]="internExp.language">
+                    <div class="form-group col-md-1">
+                        <input name="ie_langage" id="ie_language" type="text" class="form-control" [(ngModel)]="internationalization.language" placeholder="Language">
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-4">
+                        <input name="ie_role" id="ie_role" type="text" class="form-control" [(ngModel)]="internationalization.role" placeholder="Role">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input name="ie_city" id="ie_city" type="text" class="form-control" [(ngModel)]="internationalization.city" placeholder="City">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input name="ie_country" id="ie_country" type="text" class="form-control" [(ngModel)]="internationalization.country" placeholder="Country">
+                    </div>
+                    <div class="form-group col-md-1">
                         <button class="btn btn-primary" (click)="inserirInternExp()">Adicionar</button>
                     </div>
                 </div>
@@ -154,7 +165,6 @@
 
     <div class="form-row" style="padding-top: 15px;">
         <div class="form-group col-md-10">
-            <button type="button" class="btn btn-primary" (click)="exit()" routerLinkActive="router-link-active" >Voltar</button>
             <button type="button" class="btn btn-warning" (click)="newExperience()" style="margin-left: 10px;" >Novo</button>
             <button type="button" class="btn btn-success" (click)="saveExperience()" [disabled]="formValidate.invalid" style="margin-left: 10px;" >Salvar</button>
         </div>

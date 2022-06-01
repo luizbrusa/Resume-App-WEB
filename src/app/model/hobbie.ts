@@ -1,5 +1,5 @@
 import { IconName } from "@fortawesome/free-solid-svg-icons";
-import { Person } from "./person";
+import { Pessoa } from "./person";
 
 export class Hobbie {
 
@@ -7,6 +7,6 @@ export class Hobbie {
     title: string;
     icon: IconName;
 
-    person: Person = new Person();
+    pessoa: Pessoa = new Pessoa();
 
 }

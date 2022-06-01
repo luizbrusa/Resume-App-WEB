@@ -32,4 +32,8 @@ export class InternationalizationService {
     return this.http.get(this.url + id);
   }
 
+  listarInternationalizationsPessoa(idPessoa: string): Observable<any> {
+    return this.http.get(this.url + 'pessoa/' + idPessoa);
+  }
+
 }

@@ -4,7 +4,7 @@ import { faBars, faShareAlt, faCloudDownloadAlt, IconDefinition, faSignOutAlt } 
 import { NgNavigatorShareService } from "ng-navigator-share";
 import { LocaleId } from "src/app/locale.provider";
 import { LocaleService } from "src/app/service/locale.service";
-import { Person } from "src/app/model/person";
+import { Pessoa } from "src/app/model/person";
 import { environment } from "src/environments/environment";
 import { DomSanitizer } from "@angular/platform-browser";
 
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private _pageXOffset: any;
   private ngNavigatorShareService: NgNavigatorShareService | undefined;
 
-  person: Person = new Person();
+  person: Pessoa = new Pessoa();
 
   agora = Date.now();
 
@@ -128,7 +128,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     const HTMLEl: HTMLElement | null = document.getElementById(element);
 
     if (HTMLEl) {
-      HTMLEl.scrollIntoView({behavior: 'smooth'});
+      HTMLEl.scrollIntoView({behavior: 'smooth', block: 'nearest'});
       link.style.backgroundColor = 'rgb(255, 255, 255)';
     }
   }
@@ -161,7 +161,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       await this.ngNavigatorShareService?.share({
         title: "Resume - Luiz Antônio de Almeida",
         text: "Hello, I'm a Full-stack Java Web Developer with 15+ years of experience designing web and desktop projects. Find out more in my resume!",
-        url: "http://luizInfo.com"
+        url: "http://luizbrusa.com"
       });
     } catch(error) {
       console.log("You app is not shared, reason: ", error);

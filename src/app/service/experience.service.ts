@@ -32,8 +32,8 @@ export class ExperienceService {
     return this.http.get(this.url + id);
   }
 
-  listarExperiencesPerson(idPerson?: string): Observable<any> {
-    return this.http.get(this.url + 'pessoa/' + idPerson);
+  listarExperiencesPessoa(idPessoa: string): Observable<any> {
+    return this.http.get(this.url + 'pessoa/' + idPessoa);
   }
 
 }
