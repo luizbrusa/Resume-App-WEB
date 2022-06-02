@@ -4,7 +4,6 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 import { Pessoa } from "src/app/model/person";
 import { environment } from "src/environments/environment";
 import { AbstractSwipeSection } from "../../core/shared/abstract.swipe.section";
-import { Post } from "../../model/post";
 
 @Component({
   selector: "app-posts",

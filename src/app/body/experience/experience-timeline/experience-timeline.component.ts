@@ -3,6 +3,7 @@ import { SafariDateFormatterPipe } from "../../../core/pipe/safari-date-formatte
 import { LocalizedDatePipe } from "../../../core/pipe/localized-date.pipe";
 import { Experience } from "src/app/model/experience";
 import { LocaleService } from "src/app/service/locale.service";
+import { SorterService } from "src/app/core/sorter.service";
 
 @Component({
   selector: "app-experience-timeline",
@@ -12,6 +13,7 @@ import { LocaleService } from "src/app/service/locale.service";
 export class ExperienceTimelineComponent implements OnInit, OnDestroy {
 
   private _experiences: Array<Experience> = new Array<Experience>();
+  private experiencesOrdered: Array<Experience> = new Array<Experience>();
   private _currentPosition: number;
   private offsetWidth: number;
 
@@ -24,12 +26,9 @@ export class ExperienceTimelineComponent implements OnInit, OnDestroy {
   constructor(
     private elRef: ElementRef,
     private renderer: Renderer2,
-    private localeService: LocaleService
-  ) {
-//    if (!this.line) {
-//      this.line = new ElementRef(document.getElementById('line'));
-//    }
-  }
+    private localeService: LocaleService,
+    private sorterService: SorterService
+  ) { }
 
   @Input() get currentPosition(): number {
     return this._currentPosition;
@@ -49,7 +48,7 @@ export class ExperienceTimelineComponent implements OnInit, OnDestroy {
   set experiences(value: Array<Experience>) {
       if(value) {
         this._experiences = value;
-//        this.populateExperienceTimeline();
+        this.experiencesOrdered = [...this._experiences].sort(this.sorterService.sort("position", "asc"));
       }
   }
 
@@ -89,15 +88,15 @@ export class ExperienceTimelineComponent implements OnInit, OnDestroy {
 
   private daysBetween(startDate: string, endDate: string): number {
     // The .replace() is necessary in order to avoid issues in the Firefox browser.
-    const pointA = new Date(startDate.replace(/-/g,'/'));
-    const pointB = new Date(endDate.replace(/-/g,'/'));
-    return Math.round(Math.abs(+pointA - +pointB) / 8.64e7);
+    const fut = new Date(endDate.replace(/-/g,'/'));
+    const past = new Date(startDate.replace(/-/g,'/'));
+    const diff = Math.abs(fut.getTime() - past.getTime()); // Subtrai uma data pela outra
+    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    return days; // Divide o total pelo total de milisegundos correspondentes a 1 dia. (1000 milisegundos = 1 segundo).
   }
 
   private retrieveTodayDateAsString(): string {
     const today = new Date();
-//    return `${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`;
-
     let todayString = '';
     if (today.getMonth()+1 < 10) {
       todayString = '0';
@@ -112,8 +111,8 @@ export class ExperienceTimelineComponent implements OnInit, OnDestroy {
   }
 
   populateExperienceTimeline(): void {
-    if (this.line.nativeElement && this._experiences.length > 0) {
-      let dates: string[] = this._experiences.map(experience => experience.startAt);
+    if (this.line.nativeElement && this.experiencesOrdered.length > 0) {
+      let dates: string[] = this.experiencesOrdered.map(experience => experience.startAt);
 
       // Adding the current day in order to complete the timeline.
       dates.push(this.retrieveTodayDateAsString());

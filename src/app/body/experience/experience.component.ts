@@ -23,7 +23,6 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
   TRANSITION_TIME: number = 400;
 
   experiences: Array<Experience> = new Array<Experience>();
-  experiencesOrdered: Array<Experience> = new Array<Experience>();
   currentPosition: number;
   backgroundUrl: string;
 
@@ -45,10 +44,8 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
   ngOnInit(): void {
     if (environment.person.id) {
       this.experiences = environment.person.experiences;
-
       this.currentPosition = this.experiences.length;
-      this.experiencesOrdered = [...this.experiences];
-      this.experiencesOrdered.sort(this.sortService.sort("position", "desc"));       
+      this.experiences = this.experiences.sort(this.sortService.sort("position", "desc"));       
       this.backgroundUrl = this.retrieveBackgroundUrl();
       this.updateMobileNavigationView();
       this.preloadBounderyImages(this.experiences.map(xp => xp.backgroundUrlTypeFile + ',' + xp.backgroundUrl));
@@ -60,7 +57,7 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
   }
 
   public disableNextNavigation(): boolean {
-    return this.currentPosition === this.experiencesOrdered?.length;
+    return this.currentPosition === this.experiences?.length;
   } 
 
   // Preloads the boundaries images related to the current position in order to avoid the "blinking" of the background while navigating.
@@ -134,8 +131,7 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
   }
 
   private retrieveBackgroundUrl(): string {
-//    return this.experiences[this.currentPosition - 1].backgroundUrlTypeFile + ',' + this.experiences[this.currentPosition - 1].backgroundUrl;
-    let expAux: Experience = this.experiencesOrdered.filter(elem => elem.position == this.currentPosition)[0];
+    let expAux: Experience = this.experiences.filter(elem => elem.position == this.currentPosition)[0];
     return expAux.backgroundUrlTypeFile + ',' + expAux.backgroundUrl;
   }
 

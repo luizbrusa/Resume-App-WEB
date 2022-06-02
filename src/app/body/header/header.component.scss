@@ -74,7 +74,6 @@ header {
             border-radius: 15px;
             -webkit-box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16); 
             box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
-            cursor: pointer;
 
             ul {
                 height: 52px;
@@ -94,7 +93,7 @@ header {
                         text-transform: uppercase;
                         font-size: 20px;
                         font-weight: 600;
-                        color: #222f5c;
+                        color: #222f5c56;
                         transition: 0.3s;
 
                         &:hover {
@@ -128,9 +127,10 @@ header {
     .child.share-container {
         // visible only for mobile browsers that accept share intent.
         display: none;
+        height: 52px;
         margin-left: 10px;
         background-color: #fff;
-        padding: 11px;
+        padding: 10px;
         border-radius: 15px;
         box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
         cursor: pointer;
@@ -146,9 +146,10 @@ header {
     }
 
     .child.signout-container {
+        height: 52px;
         margin-left: 10px;
         background-color: #fff;
-        padding: 11px;
+        padding: 10px;
         border-radius: 15px;
         box-shadow: 0 0 9px 0 rgba(112, 112, 112, 0.16);
         cursor: pointer;
@@ -162,5 +163,4 @@ header {
             }
         }        
     }
-
 }

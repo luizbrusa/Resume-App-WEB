@@ -81,8 +81,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.faShareAlt = faShareAlt;
     this.faCloudDownloadAlt = faCloudDownloadAlt;
     this.faSignOutAlt = faSignOutAlt;
-
-    this.localeId
   }
 
   private updateNavigation() {

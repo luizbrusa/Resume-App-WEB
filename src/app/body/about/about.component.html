@@ -4,7 +4,8 @@
             <h1>{{'header.aboutMe' | translate}}</h1>
             <h2><span itemprop="name">{{ pessoa.name }}</span></h2>
             <p class="years-old">
-                <span>{{ calcAge }}</span>&nbsp;<span>{{'about.yearsOld' | translate}}</span>
+<!--                <span>{{ calcAge }}</span>&nbsp;<span>{{'about.yearsOld' | translate}}</span>-->
+                <span>{{ pessoa.nickname }}</span>
             </p>
             <p class="text" appInternationalization [data]="pessoa.internationalizations" property='description' itemprop="summary">Loading...</p>
             <div class="hobbies">
