@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: "app-welcome",
   templateUrl: "./welcome.component.html",
-  styleUrls: ["./welcome.component.css", "./welcome-component.responsivity.css"]
+  styleUrls: ["./welcome.component.min.css", "./welcome.component.responsivity.min.css"]
 })
 
 export class WelcomeComponent implements OnInit {

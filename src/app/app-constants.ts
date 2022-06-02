@@ -4,7 +4,12 @@ export class AppConstants {
 
 	constructor() {}
 
-	public static get baseServidor(): string { return 'http://localhost:8080/'; }
+//  ****  Rodar Localmente
+//	public static get baseServidor(): string { return 'http://localhost:8080/'; }
+
+//  ****  Rodar no Heroku
+	public static get baseServidor(): string { return 'https://resume-api-rest.herokuapp.com/'; }
+
 	public static get urlPath(): string { return this.baseServidor + 'resumeAPI/'; }
 
 	public static get urlLogin(): string { return this.urlPath + 'login'; } // END POINT para a URL de Login

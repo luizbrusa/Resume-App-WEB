@@ -9,7 +9,7 @@ import { ContactService } from "src/app/service/contact.service";
 @Component({
   selector: "app-contact",
   templateUrl: "./contact.component.html",
-  styleUrls: ["./contact.component.scss", "./contact.component.responsivity.scss"]
+  styleUrls: ["./contact.component.min.scss", "./contact.component.responsivity.min.scss"]
 })
 
 export class ContactComponent implements OnInit {

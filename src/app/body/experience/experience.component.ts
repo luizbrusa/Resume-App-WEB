@@ -10,7 +10,7 @@ import { environment } from "src/environments/environment";
 @Component({
   selector: "app-experience",
   templateUrl: "./experience.component.html",
-  styleUrls: ["./experience.component.scss", "experience-component.reponsivity.scss"],
+  styleUrls: ["./experience.component.min.scss", "experience.component.responsivity.min.scss"],
   providers: [ SorterService ]
 })
 export class ExperienceComponent extends AbstractSwipeSection implements OnInit {

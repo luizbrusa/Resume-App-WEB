@@ -11,7 +11,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss", "./header.component.responsivity.scss"]
+  styleUrls: ["./header.component.min.scss", "./header.component.responsivity.min.scss"]
 })
 
 export class HeaderComponent implements OnInit, AfterViewInit {
