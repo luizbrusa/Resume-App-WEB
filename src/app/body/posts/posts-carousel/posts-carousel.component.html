@@ -1,19 +1,20 @@
 <div class="events-content">
     <ol [ngClass]="{'partial': _posts.length < 3 && currentPage >= (_originalPosts.length / resultsPerPage)}">
-        <li *ngFor="let post of _posts" itemprop="techArticle">
-            <div class="card" [@fadeInOut] itemprop="item">
-                <a href="{{ post.http }}" rel="nofollow" target="_blank" itemprop="url">
+        <li *ngFor="let post of _posts">
+            <div class="card" [@fadeInOut]>
+                <a href="{{ post.http }}" rel="nofollow" target="_blank">
                     <div class="thumbnail" [style.backgroundImage]="'url(' + post.thumbnailTypeFile + ',' + post.thumbnail + ')'">
                         <meta itemprop="thumbnailUrl" content="{{ post.thumbnailTypeFile + ',' + post.thumbnail }}" />
                         <meta itemprop="image" content="{{ post.thumbnailTypeFile + ',' + post.thumbnail }}" />
-                        <span class="date" itemprop="datePublished">{{ post.date | safariDateFormatter | localizedDate:'MMM yyyy' }}</span>
+                        <span class="date">{{ post.date | safariDateFormatter | localizedDate:'MMM yyyy' }}</span>
                     </div>
                     <div class="content">
-                        <h2 class="title" appInternationalization [data]="post.internationalizations" property='title' itemprop="name" itemprop="headline">Loading...</h2>
-                        <p class="description" appInternationalization [data]="post.internationalizations" property='description' itemprop="description">Loading...</p>
+                        <h2 class="title" appInternationalization [data]="post.internationalizations" property='title'>{{'experience.loading' | translate}}</h2>
+                        <p class="description" appInternationalization [data]="post.internationalizations" property='description'>{{'experience.loading' | translate}}</p>
                     </div>
-                    <button class="read-more">Read more</button>
+                    <button type="button" class="read-more">{{'post.readMore' | translate}}</button>
                 </a>
+                <button class="btn btn-lg btn-outline-primary" (click)="openModal(mymodal, post)">{{'post.openLetter' | translate}}</button>
             </div>
         </li>
     </ol>
@@ -28,3 +29,19 @@
         <span class="label">{{'post.posts' | translate}}</span>
     </p>
 </div>
+
+<!-- Modal -->
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{'post.modalTitle' | translate}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <iframe id="letter" width="100%" height="500" frameborder="0" allowtransparency="true"></iframe>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+  </ng-template>

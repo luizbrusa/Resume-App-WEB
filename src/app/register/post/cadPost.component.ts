@@ -161,10 +161,12 @@ export class CadPostComponent implements OnInit {
     if (this.post.id != null) {
       this.postService.atualizarPost(this.post).subscribe(data => {
         console.log('Atualizou: ' + data);
+        alert('Registro Atualizado com Sucesso!');
       });
     } else {
       this.postService.inserirPost(this.post).subscribe(data => {
         console.log('Inseriu: ' + data);
+        alert('Registro Inserido com Sucesso!');
       });
     }
   }
@@ -174,6 +176,7 @@ export class CadPostComponent implements OnInit {
       this.postService.deletePost(id).subscribe(data => {
         this.posts?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
         console.log('Excluído com Sucesso: ' + data);
+        alert('Registro Excluído com Sucesso!');
       });
     }
   }
@@ -233,6 +236,7 @@ export class CadPostComponent implements OnInit {
         this.internationalizationService.deleteInternationalization(id).subscribe(data => {
           this.post.internationalizations?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
           console.log('Excluído com Sucesso: ' + data);
+          alert('Registro Excluído com Sucesso!');
         });
       }
     } else {

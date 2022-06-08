@@ -3,10 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateAdapter, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Experience } from 'src/app/model/experience';
 import { Internationalization } from 'src/app/model/internationalization';
+import { Media } from 'src/app/model/media';
 import { Pessoa } from 'src/app/model/person';
 import { Technology } from 'src/app/model/technology';
 import { ExperienceService } from 'src/app/service/experience.service';
 import { InternationalizationService } from 'src/app/service/internationalization.service';
+import { MediaService } from 'src/app/service/media.service';
 import { TechnologyService } from 'src/app/service/technology.service';
 
 @Injectable()
@@ -76,6 +78,7 @@ export class CadExperienceComponent implements OnInit {
 
   idPerson: string | null;
   experience: Experience = new Experience();
+  media: Media = new Media();
   internationalization: Internationalization = new Internationalization();
   technologyExp: Technology = new Technology();
   experiences: Array<Experience> = new Array<Experience>();
@@ -83,7 +86,8 @@ export class CadExperienceComponent implements OnInit {
   constructor(private routeActive: ActivatedRoute, private router: Router, 
     private experienceService: ExperienceService,
     private internationalizationService: InternationalizationService,
-    private technologyService: TechnologyService) { }
+    private technologyService: TechnologyService,
+    private mediaService: MediaService) { }
 
   ngOnInit(): void {
     this.idPerson = this.routeActive.snapshot.paramMap.get('idPerson');
@@ -149,6 +153,16 @@ export class CadExperienceComponent implements OnInit {
     }
   }
 
+  onclickMedias() {
+    this.inativaTabs()
+
+    document.getElementById('linkMedias')?.classList.add('active');
+    let div = document.getElementById('divMedias');
+    if (div) {
+      div.style.display = 'inherit';
+    }
+  }
+
   newExperience() {
     this.experience = new Experience();
   }
@@ -173,12 +187,15 @@ export class CadExperienceComponent implements OnInit {
     }
 
     if (this.experience.id != null) {
+      console.log(this.experience);
       this.experienceService.atualizarExperience(this.experience).subscribe(data => {
         console.log('Atualizou: ' + data);
+        alert('Registro Atualizado com Sucesso!');
       });
     } else {
       this.experienceService.inserirExperience(this.experience).subscribe(data => {
         console.log('Inseriu: ' + data);
+        alert('Registro Inserido com Sucesso!');
       });
     }
   }
@@ -188,6 +205,7 @@ export class CadExperienceComponent implements OnInit {
       this.experienceService.deleteExperience(id).subscribe(data => {
         this.experiences?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
         console.log('Excluído com Sucesso: ' + data);
+        alert('Registro Excluído com Sucesso!');
       });
     }
   }
@@ -247,6 +265,7 @@ export class CadExperienceComponent implements OnInit {
         this.internationalizationService.deleteInternationalization(id).subscribe(data => {
           this.experience.internationalizations?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
           console.log('Excluído com Sucesso: ' + data);
+          alert('Registro Excluído com Sucesso!');
         });
       }
     } else {
@@ -269,10 +288,34 @@ export class CadExperienceComponent implements OnInit {
         this.technologyService.deleteTechnology(id).subscribe(data => {
           this.experience.technologies?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
           console.log('Excluído com Sucesso: ' + data);
+          alert('Registro Excluído com Sucesso!');
         });
       }
     } else {
         this.experience.technologies?.splice(index, 1); // Exclui o Registro somente da Tela
+    }
+  }
+
+  inserirMedia() {
+    if (this.experience.medias === undefined) {
+      this.experience.medias = new Array<Media>();
+    }
+
+    this.experience.medias.push(this.media);
+    this.media = new Media();
+  }
+
+  deleteMedia(id: number | undefined, index: number) {
+    if (id !== undefined) {
+      if (confirm('Deseja Realmente Excluir o Registro')) {
+        this.mediaService.deleteMedia(id).subscribe(data => {
+          this.experience.medias?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
+          console.log('Excluído com Sucesso: ' + data);
+          alert('Registro Excluído com Sucesso!');
+        });
+      }
+    } else {
+        this.experience.medias?.splice(index, 1); // Exclui o Registro somente da Tela
     }
   }
 

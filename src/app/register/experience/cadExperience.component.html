@@ -13,6 +13,9 @@
         <li class="nav-item" [style]="experience.id? '' : 'pointer-events: none; opacity:0.6;'">
             <a class="nav-link" href="javascript:void(0)" (click)="onclickTechnologies()" id="linkTechnology">Technologies</a>
         </li>
+        <li class="nav-item" [style]="experience.id? '' : 'pointer-events: none; opacity:0.6;'">
+            <a class="nav-link" href="javascript:void(0)" (click)="onclickMedias()" id="linkMedias">Social Media</a>
+        </li>
     </ul>
 
     <div class="form-group col-md-12" name="divTabs" id="divExperience" style="display:inherit">
@@ -160,6 +163,54 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!--                 SOCIAL MEDIA                              -->
+    <div class="form-group col-md-12" name="divTabs" id="divMedias" style="display:none">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <br>
+                <input type="text" [(ngModel)]="media.title" id="m_title" name="m_title" class="form-control" placeholder="Title">
+            </div>
+
+            <div class="form-group col-md-4">
+                <br>
+                <input type="text" [(ngModel)]="media.http" id="m_http" name="m_http" class="form-control" placeholder="Http">
+            </div>
+
+            <div class="form-group col-md-2">
+                <br>
+                <input type="text" [(ngModel)]="media.icon" id="m_icon" name="m_icon" class="form-control" placeholder="Icon (From Font Awesome)">
+            </div>
+
+            <div class="form-group col-md-2">
+                <br>
+                <button class="btn btn-primary" (click)="inserirMedia()">Adicionar</button>
+            </div>
+        </div>
+            
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>ID</td>
+                            <td>Title</td>
+                            <td>Http</td>
+                            <td>Icon</td>
+                            <td>Excluir</td>
+                        </tr>
+                        <tr *ngFor="let med of experience.medias; let idx = index">
+                            <td>{{med.id === undefined ? "ADD" : med.id}}</td>
+                            <td>{{med.title}}</td>
+                            <td>{{med.http}}</td>
+                            <td>{{med.icon}}</td>
+                            <td><button class="btn btn-danger" (click)="deleteMedia(med.id, idx)">Excluir</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

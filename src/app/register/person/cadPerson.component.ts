@@ -133,10 +133,12 @@ export class CadPersonComponent implements OnInit {
     if (this.pessoa.id != null) {
       this.personService.atualizarPessoa(this.pessoa).subscribe(data => {
         console.log('Atualizou: ' + data);
+        alert('Registro Atualizado com Sucesso!');
       });
     } else {
       this.personService.inserirPessoa(this.pessoa).subscribe(data => {
         console.log('Inseriu: ' + data);
+        alert('Registro Inserido com Sucesso!');
       });
     }
   }
@@ -305,6 +307,7 @@ export class CadPersonComponent implements OnInit {
         this.mediaService.deleteMedia(id).subscribe(data => {
           this.pessoa.medias?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
           console.log('Excluído com Sucesso: ' + data);
+          alert('Registro Excluído com Sucesso!');
         });
       }
     } else {
@@ -327,6 +330,7 @@ export class CadPersonComponent implements OnInit {
         this.hobbieService.deleteHobbie(id).subscribe(data => {
           this.pessoa.hobbies?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
           console.log('Excluído com Sucesso: ' + data);
+          alert('Registro Excluído com Sucesso!');
         });
       }
     } else {
@@ -349,6 +353,7 @@ export class CadPersonComponent implements OnInit {
         this.internationalizationService.deleteInternationalization(id).subscribe(data => {
           this.pessoa.internationalizations?.splice(index, 1); // Exclui o Registro da Tela após do Banco de Dados
           console.log('Excluído com Sucesso: ' + data);
+          alert('Registro Excluído com Sucesso!');
         });
       }
     } else {

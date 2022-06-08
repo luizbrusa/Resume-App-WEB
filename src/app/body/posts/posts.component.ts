@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { SorterService } from "src/app/core/sorter.service";
 import { Pessoa } from "src/app/model/person";
 import { environment } from "src/environments/environment";
 import { AbstractSwipeSection } from "../../core/shared/abstract.swipe.section";
@@ -8,7 +9,8 @@ import { AbstractSwipeSection } from "../../core/shared/abstract.swipe.section";
 @Component({
   selector: "app-posts",
   templateUrl: "./posts.component.html",
-  styleUrls: ["./posts.component.scss", "./posts.component.responsivity.scss"]
+  styleUrls: ["./posts.component.scss", "./posts.component.responsivity.scss"],
+  providers: [ SorterService ]
 })
 export class PostsComponent extends AbstractSwipeSection implements OnInit {
 
@@ -20,7 +22,7 @@ export class PostsComponent extends AbstractSwipeSection implements OnInit {
   faChevronLeft: IconDefinition;
   faChevronRight: IconDefinition;
 
-  constructor() {
+  constructor(private sorterService: SorterService) {
     super();
    }
 

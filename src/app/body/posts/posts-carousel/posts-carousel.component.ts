@@ -1,13 +1,8 @@
-import {
-    Component, OnInit,
-    Input, HostListener,
-    EventEmitter, ElementRef,
-    Output
-} from "@angular/core";
-
+import { Component, Input, HostListener, EventEmitter, ElementRef, Output } from "@angular/core";
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import { debounce } from "../../../core/utils";
 import { Post } from "src/app/model/post";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: "app-posts-carousel",
@@ -35,8 +30,9 @@ export class PostsCarouselComponent {
     elWidth: number;
     start: number;
     end: number;
+    closeResult: string = '';
 
-    constructor(private elRef: ElementRef) { }
+    constructor(private elRef: ElementRef, private modalService: NgbModal) { }
 
     @Input() get currentPage(): number {
         return this._currentPage;
@@ -56,6 +52,7 @@ export class PostsCarouselComponent {
     set posts(value: Array<Post>) {
         if(value) {
             this._originalPosts = value;
+            this._originalPosts.sort((a: Post, b: Post) => +new Date(b.date) - +new Date(a.date));
             this.onResizeElement();
         }
     }
@@ -78,11 +75,21 @@ export class PostsCarouselComponent {
         if(this._currentPage && this._posts) {
             this.start =  (this._currentPage - 1) * this.resultsPerPage;
             this.end = this._currentPage * this.resultsPerPage;
-
             this._posts = this._originalPosts.slice(this.start, this.end);
-            this._posts.sort((a:any, b:any) => +new Date (b.date) - +new Date(a.date));
 
             this.resultsPerPageChanged.emit(this.resultsPerPage);
         }
+    }
+
+    openModal(modal: any, post: Post) {
+        this.modalService.open(modal, {
+            ariaLabelledBy: 'modal-basic-title',
+            size: 'xl'
+        });
+
+        let iFrame = document.getElementById('letter');
+        if (iFrame) {
+            iFrame.setAttribute('src',post.fileTypeFile + ',' + post.file);
+        } 
     }
 }
