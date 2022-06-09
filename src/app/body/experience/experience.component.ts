@@ -26,9 +26,9 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
   currentPosition: number;
   backgroundUrl: string;
 
-  previousYear: string;
-  currentYear: string;
-  nextYear: string;
+  previousYear: string = '';
+  currentYear: string = '';
+  nextYear: string = '';
 
   @ViewChild("orderedList") orderedList: ElementRef;
 
@@ -45,7 +45,7 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
     if (environment.person.id) {
       this.experiences = environment.person.experiences;
       this.currentPosition = this.experiences.length;
-      this.experiences = this.experiences.sort(this.sortService.sort("position", "desc"));       
+      this.experiences.sort(this.sortService.sort("position", "desc"));       
       this.backgroundUrl = this.retrieveBackgroundUrl();
       this.updateMobileNavigationView();
       this.preloadBounderyImages(this.experiences.map(xp => xp.backgroundUrlTypeFile + ',' + xp.backgroundUrl));
@@ -136,8 +136,24 @@ export class ExperienceComponent extends AbstractSwipeSection implements OnInit 
   }
 
   private updateMobileNavigationView() {
-    this.previousYear = this.experiences[this.currentPosition - 2]?.startAt || this.experiences[this.currentPosition - 1].startAt;
-    this.currentYear = this.experiences[this.currentPosition - 1].startAt;
-    this.nextYear = this.experiences[this.currentPosition]?.startAt || this.experiences[this.currentPosition - 1].startAt;
+//    this.previousYear = this.experiences[this.currentPosition - 2]?.startAt || this.experiences[this.currentPosition - 1].startAt;
+//    this.currentYear = this.experiences[this.currentPosition - 1].startAt;
+//    this.nextYear = this.experiences[this.currentPosition]?.startAt || this.experiences[this.currentPosition - 1].startAt;
+
+    this.previousYear = '';
+    this.currentYear = '';
+    this.nextYear = '';
+    this.experiences.forEach(element => {
+      if (element.position == this.currentPosition - 1) {
+        this.previousYear = element.startAt;
+      } else if (element.position == this.currentPosition) {
+        this.currentYear = element.startAt;
+      } else if (element.position == this.currentPosition + 1){
+        this.nextYear = element.startAt;
+      }
+    });
+
+    this.previousYear = this.previousYear == '' ? this.currentYear : this.previousYear;
+    this.nextYear = this.nextYear == '' ? this.currentYear : this.nextYear;
   }
 }

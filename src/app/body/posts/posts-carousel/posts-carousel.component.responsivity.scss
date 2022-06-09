@@ -1,7 +1,13 @@
 @media screen and (max-width: 1024px) {
 
-    .events-content ol .card .content {
-        min-height: initial;
+    .events-content {
+        ol li {
+            width: 100%;
+        }
+
+        .card .content {
+            min-height: initial;
+        }
     }
 }
 
@@ -10,7 +16,10 @@
     .events-content {
     
         ol {
-    
+            li {
+                width: 100%;
+            }
+
             .card {
     
                 .thumbnail {
@@ -43,6 +52,9 @@
     .events-content {
 
         ol {
+            li {
+                width: 100%;
+            }
     
             .card {
     
@@ -77,6 +89,10 @@
 @media screen and (max-width: 450px) {
 
     .events-content {
+
+        ol li {
+            width: 100%;
+        }
 
         .paginator {
             text-align: center;

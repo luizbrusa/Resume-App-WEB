@@ -23,7 +23,7 @@
         <p class="synopsis">{{'post.synopsis' | translate}}</p>
         <div class="middle-container" (swipe)="onSwipe($event)">
             <app-posts-carousel
-                [posts]="person.posts"
+                [posts]="posts"
                 [currentPage]="currentPage"
                 (resultsPerPageChanged)="updateNavigation($event)"></app-posts-carousel>
         </div>
