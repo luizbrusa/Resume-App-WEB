@@ -14,8 +14,12 @@
             <li><a name="link" #linkExperience (click)="scrollTo('experience',linkExperience)" href="javascript:void(0)" itemprop="url"><span itemprop="name">{{'header.experiences' | translate}}</span></a></li>
             <li><a name="link" #linkPosts (click)="scrollTo('posts',linkPosts)" href="javascript:void(0)" itemprop="url"><span itemprop="name">{{'header.posts' | translate}}</span></a></li>
             <li><a name="link" #linkContact (click)="scrollTo('contact',linkContact)" href="javascript:void(0)" itemprop="url"><span itemprop="name">{{'header.contact' | translate}}</span></a></li>
-            <!-- TODO: update here -->
+            <!--
             <li><a [download]="resumeName" (click)="resetMenu()" [href]="showResume" [title]="'header.downloadAsPdf' | translate" target="_blank">
+                <fa-icon [icon]="faCloudDownloadAlt" class="bar-icon"></fa-icon>
+            </a></li> 
+            -->
+            <li><a (click)="openModal(mymodal, person)" [title]="'header.viewAsPdf' | translate" target="_blank">
                 <fa-icon [icon]="faCloudDownloadAlt" class="bar-icon"></fa-icon>
             </a></li>
         </ul>
@@ -43,3 +47,19 @@
     </div>-->
 
 </header>
+
+<!-- Modal -->
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{'app.title' | translate}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <iframe id="resume" width="100%" height="500" frameborder="0" allowtransparency="true"></iframe>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>

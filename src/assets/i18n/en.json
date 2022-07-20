@@ -8,7 +8,8 @@
         "experiences": "Experiences",
         "posts": "Reviews",
         "contact": "Contact",
-        "downloadAsPdf": "Download as PDF"
+        "downloadAsPdf": "Download as PDF",
+        "viewAsPdf": "View as PDF"
     },
 
     "dialog": {

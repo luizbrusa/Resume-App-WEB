@@ -7,6 +7,7 @@ import { LocaleService } from "src/app/service/locale.service";
 import { Pessoa } from "src/app/model/person";
 import { environment } from "src/environments/environment";
 import { DomSanitizer } from "@angular/platform-browser";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-header",
@@ -40,7 +41,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private router: Router,
     private localeService: LocaleService,
     private domSanitizer: DomSanitizer,
-    ngNavigatorShareService: NgNavigatorShareService) {
+    ngNavigatorShareService: NgNavigatorShareService,
+    private modalService: NgbModal) {
     this.ngNavigatorShareService = ngNavigatorShareService;
   }
 
@@ -147,11 +149,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   get showResume() {
-    if (this.person.resume) {
-      return this.domSanitizer.bypassSecurityTrustUrl('data:application/pdf;base64,' + this.person.resume);
-    } else {
-      return '';
-    }
+//    this.router.navigate(['resumeCv']);
+    return '';
+
+    // if (this.person.resume) {
+    //   return this.domSanitizer.bypassSecurityTrustUrl('data:application/pdf;base64,' + this.person.resume);
+    // } else {
+    //   return '';
+    // }
   }
 
   async share() {
@@ -164,6 +169,18 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     } catch(error) {
       console.log("You app is not shared, reason: ", error);
     }    
+  }
+
+  openModal(modal: any, person: Pessoa) {
+    this.modalService.open(modal, {
+        ariaLabelledBy: 'modal-basic-title',
+        size: 'xl'
+    });
+
+    let iFrame = document.getElementById('resume');
+    if (iFrame) {
+        iFrame.setAttribute('src','data:application/pdf;base64,' + person.resume);
+    } 
   }
 
 }
