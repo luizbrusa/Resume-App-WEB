@@ -11,11 +11,23 @@ import { environment } from 'src/environments/environment';
 export class PersonService {
 
   private url: string = AppConstants.urlPath + 'pessoa/';
+  private urlLocal: string = AppConstants.baseUrlLocal + 'person.json';
 
   constructor(private http: HttpClient) { }
 
   listarPessoas(): Observable<any> {
-    return this.http.get(this.url);
+//    return this.http.get(this.url);
+    return this.http.get(this.urlLocal);
+  }
+
+  localizarPessoa(id: string | null): Observable<any> {
+//    return this.http.get(this.url + id);
+    return this.http.get(this.urlLocal);
+  }
+
+  localizarPersonUser(loginUser: string): Observable<any> {
+//    return this.http.get(this.url + 'usuario/' + loginUser);
+    return this.http.get(this.urlLocal);
   }
 
   inserirPessoa(pessoa: any): Observable<any> {
@@ -28,14 +40,6 @@ export class PersonService {
 
   excluirPessoa(id: string): Observable<any> {
     return this.http.delete(this.url + id, {responseType: 'text'});
-  }
-
-  localizarPessoa(id: string | null): Observable<any> {
-    return this.http.get(this.url + id);
-  }
-
-  localizarPersonUser(loginUser: string): Observable<any> {
-    return this.http.get(this.url + 'usuario/' + loginUser);
   }
 
   get getPerson(): Pessoa {
