@@ -19,7 +19,23 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Usuário Autenticado: ' + AppConstants.isUsuarioAutenticado + ' Pessoa Logada: ' + AppConstants.isPersonLogada );
+    //Se não tiver o botão de Login pode executar esta parte
+    if (!environment.person.id){
+      this.personService.localizarPessoa(localStorage.getItem('personId')).subscribe({
+        next: data => {
+          environment.person = data;
+        },
+        error: (erro) => console.error('Erro ao Buscar Person: ' + erro),
+        complete: () => {
+          this.router.navigate(['resume']) //Rota para Resume Component
+        }
+      });
+    } else {
+      this.router.navigate(['resume']) //Rota para Resume Component
+    }
+
+    //Se tiver o botão de Login pode executar esta parte pois controlará o acesso à aplicação e direcionará para as rotas
+/*    console.log('Usuário Autenticado: ' + AppConstants.isUsuarioAutenticado + ' Pessoa Logada: ' + AppConstants.isPersonLogada );
 
     if ((!AppConstants.isPersonLogada) && (!AppConstants.isUsuarioAutenticado)) {
       this.router.navigate(['login']);
@@ -56,7 +72,7 @@ export class AppComponent implements OnInit {
       }
     } else {
       this.router.navigate(['person',localStorage.getItem('personId')]);
-    }
+    }*/
   }
 
 }
